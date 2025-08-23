@@ -27,16 +27,7 @@
 }
 
 .theme-toggle-indicator {
-  position: absolute;
-  top: 0.25rem;
-  left: 0.25rem;
-  width: 2rem;
-  height: 2rem;
-  background: var(--accent-color);
-  border-radius: 50%;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  display: none; /* Hide the sliding indicator - buttons show active state instead */
 }
 
 .theme-options {
@@ -77,21 +68,7 @@
   transform: scale(1.05);
 }
 
-/* Theme indicator positions */
-.theme-toggle-track[data-active="light"] .theme-toggle-indicator {
-  transform: translateX(0);
-  background: linear-gradient(135deg, var(--warning-color), #f59e0b);
-}
-
-.theme-toggle-track[data-active="dark"] .theme-toggle-indicator {
-  transform: translateX(2.25rem);
-  background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
-}
-
-.theme-toggle-track[data-active="auto"] .theme-toggle-indicator {
-  transform: translateX(4.5rem);
-  background: linear-gradient(135deg, var(--success-color), #059669);
-}
+/* Simplified track - no indicator positioning needed */
 
 /* Enhanced hover effects */
 .theme-toggle-track:hover {
@@ -106,18 +83,64 @@
   transform: scale(0.95);
 }
 
-/* Pulse animation for active theme */
-.theme-btn.active {
-  animation: pulse 2s infinite;
+/* Theme button base styling */
+.theme-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background: white;
+  border: 1px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  margin: 0 0.125rem;
+  z-index: 3;
 }
 
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.8;
-  }
+.theme-btn svg {
+  width: 1rem;
+  height: 1rem;
+  color: var(--accent-color);
+  transition: all 0.3s ease;
+}
+
+/* SELECTED/ACTIVE button: Blue background, white icon, blue border */
+.theme-btn.active {
+  background: var(--accent-color) !important;
+  border: 1px solid var(--accent-color) !important;
+}
+
+.theme-btn.active svg {
+  color: white !important;
+  transform: scale(1.1);
+}
+
+/* UNSELECTED buttons: White background, blue icon, white border */
+.theme-btn:not(.active) {
+  background: white !important;
+  border: 1px solid white !important;
+}
+
+.theme-btn:not(.active) svg {
+  color: var(--accent-color) !important;
+}
+
+/* Hover effects */
+.theme-btn:not(.active):hover {
+  background: rgba(var(--accent-rgb), 0.1) !important;
+  transform: scale(1.05);
+}
+
+.theme-btn:not(.active):hover svg {
+  color: var(--accent-color);
+  transform: scale(1.05);
+}
+
+.theme-btn:active {
+  transform: scale(0.95);
 }
 
 /* Theme switcher accessibility */

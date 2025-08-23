@@ -1,0 +1,260 @@
+/* Simple Language Switcher Styles */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.language-switcher {
+  position: relative;
+  margin-right: 0.5rem;
+}
+
+.language-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.language-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+  min-width: 110px;
+  justify-content: space-between;
+}
+
+.language-trigger:hover {
+  background: var(--bg-primary);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.language-trigger.active {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+}
+
+.language-trigger .current-lang {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.language-trigger .flag {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.language-trigger .lang-text {
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  font-size: 0.75rem;
+}
+
+.language-trigger .dropdown-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  transition: transform 0.2s ease;
+  color: var(--text-secondary);
+}
+
+.language-trigger.active .dropdown-icon {
+  transform: rotate(180deg);
+}
+
+.language-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 0.375rem);
+  left: 0;
+  right: 0;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(20px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all 0.2s ease;
+  z-index: 1000;
+  overflow: hidden;
+  min-width: 130px;
+}
+
+.language-dropdown-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  font-size: 0.8rem;
+}
+
+.language-option:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+.language-option.active {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+}
+
+.language-option .flag {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.language-option .lang-name {
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  font-size: 0.75rem;
+}
+
+/* Language-specific font adjustments */
+[data-lang="km"] {
+  font-family: 'Khmer OS', 'Noto Sans Khmer', 'Khmer UI', Arial, sans-serif;
+}
+
+/* Khmer text styling */
+.khmer-text {
+  font-family: 'Khmer OS', 'Noto Sans Khmer', 'Khmer UI', Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Enhanced typography for Khmer */
+html[lang="km"] {
+  font-family: 'Khmer OS', 'Noto Sans Khmer', 'Khmer UI', Arial, sans-serif;
+}
+
+html[lang="km"] .section-title,
+html[lang="km"] .card-title,
+html[lang="km"] .contact-title {
+  font-family: 'Khmer OS', 'Noto Sans Khmer', 'Khmer UI', Arial, sans-serif;
+  font-weight: 700;
+}
+
+html[lang="km"] .btn-text,
+html[lang="km"] .nav-link,
+html[lang="km"] .form-label {
+  font-family: 'Khmer OS', 'Noto Sans Khmer', 'Khmer UI', Arial, sans-serif;
+  font-weight: 500;
+}
+
+/* Responsive design for language switcher */
+@media (max-width: 768px) {
+  .nav-right {
+    gap: 0.5rem;
+  }
+  
+  .language-trigger {
+    min-width: 100px;
+    padding: 0.4rem 0.6rem;
+  }
+  
+  .language-trigger .lang-text {
+    font-size: 0.7rem;
+  }
+  
+  .language-dropdown-menu {
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .language-trigger .lang-text {
+    display: none; /* Hide text on very small screens, show only flags */
+  }
+  
+  .language-trigger {
+    min-width: 50px;
+  }
+  
+  .language-dropdown-menu {
+    min-width: 110px;
+  }
+}
+
+/* Language loading state */
+.language-loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.language-loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 16px;
+  margin: -8px 0 0 -8px;
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Enhanced focus states for accessibility */
+.language-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5);
+}
+
+.language-btn:focus:not(.active) {
+  border-color: #3b82f6;
+}
+
+/* Language indicator animation */
+.language-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 20px;
+  height: 2px;
+  background: white;
+  border-radius: 1px;
+  transform: translateX(-50%);
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: 20px;
+    opacity: 1;
+  }
+}

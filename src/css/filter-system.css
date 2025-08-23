@@ -1,0 +1,292 @@
+/* Enhanced Filter System Styles */
+
+/* Filter button container */
+.skills-filter,
+.projects-filter {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.skills-filter .flex,
+.projects-filter .flex {
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Enhanced filter button styles */
+.filter-btn {
+    position: relative;
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    border: 2px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+    outline: none;
+    user-select: none;
+    min-width: 120px;
+    text-align: center;
+}
+
+/* Dark mode support */
+.dark .filter-btn {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+}
+
+/* Hover effects */
+.filter-btn:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dark .filter-btn:hover {
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+/* Active state */
+.filter-btn.active {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(var(--primary-500), 0.4);
+}
+
+.dark .filter-btn.active {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: white;
+}
+
+/* Focus styles for accessibility */
+.filter-btn:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Pressed state */
+.filter-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+/* Loading state */
+.filter-btn.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.filter-btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    width: 12px;
+    height: 12px;
+    margin-top: -6px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+/* Filter transition effects */
+.skills-grid,
+.projects-grid {
+    transition: all 0.5s ease;
+    min-height: 300px;
+}
+
+/* Card animation states */
+.skill-card,
+.project-card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+    will-change: transform, opacity;
+}
+
+/* Hidden state */
+.skill-card.hide,
+.project-card.hide {
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+    pointer-events: none;
+    position: absolute;
+    visibility: hidden;
+}
+
+/* Visible state */
+.skill-card.show,
+.project-card.show {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    pointer-events: auto;
+    position: relative;
+    visibility: visible;
+}
+
+/* Default visible state */
+.skill-card:not(.hide):not(.show),
+.project-card:not(.hide):not(.show) {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    pointer-events: auto;
+    position: relative;
+    visibility: visible;
+}
+
+/* Filter feedback */
+.filter-feedback {
+    margin-top: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.filter-result {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-radius: 1rem;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.filter-category {
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+.filter-count {
+    background: var(--accent-color);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Animation keyframes */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes fadeOutDown {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .filter-btn {
+        border-width: 3px;
+    }
+    
+    .filter-btn.active {
+        border-width: 3px;
+        box-shadow: none;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .filter-btn,
+    .skill-card,
+    .project-card {
+        transition: none;
+    }
+    
+    .filter-btn:hover {
+        transform: none;
+    }
+    
+    .filter-btn.active {
+        transform: none;
+    }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .filter-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.8rem;
+        min-width: 100px;
+    }
+    
+    .skills-filter .flex,
+    .projects-filter .flex {
+        gap: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+        min-width: 80px;
+    }
+    
+    .skills-filter .flex,
+    .projects-filter .flex {
+        gap: 0.3rem;
+    }
+}
+
+/* Print styles */
+@media print {
+    .skills-filter,
+    .projects-filter {
+        display: none;
+    }
+    
+    .skill-card.hide,
+    .project-card.hide {
+        display: block !important;
+        opacity: 1 !important;
+        transform: none !important;
+        position: relative !important;
+        visibility: visible !important;
+    }
+}

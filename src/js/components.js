@@ -2,13 +2,30 @@
 class ThemeManager {
   constructor() {
     this.currentTheme = this.getStoredTheme() || 'auto';
+    console.log(`ThemeManager initialized. Stored theme: ${this.getStoredTheme()}, Current theme: ${this.currentTheme}`);
     this.init();
   }
 
   init() {
+    // Apply theme immediately
     this.applyTheme(this.currentTheme);
     this.setupThemeToggle();
     this.setupSystemThemeListener();
+    
+    // Multiple attempts to ensure UI is updated properly
+    requestAnimationFrame(() => {
+      this.forceUpdateThemeButtons();
+    });
+    
+    // Additional delay for DOM readiness
+    setTimeout(() => {
+      this.forceUpdateThemeButtons();
+    }, 100);
+    
+    // One more attempt after full page load
+    window.addEventListener('load', () => {
+      this.forceUpdateThemeButtons();
+    });
   }
 
   getStoredTheme() {
@@ -20,12 +37,42 @@ class ThemeManager {
   }
 
   applyTheme(theme) {
+    console.log(`Applying theme: ${theme}`);
     document.documentElement.setAttribute('data-theme', theme);
     this.currentTheme = theme;
     this.storeTheme(theme);
     this.updateThemeButtons();
     this.animateThemeChange();
     this.updateNavbarTheme();
+    console.log(`Theme applied and stored: ${theme}`);
+  }
+
+  forceUpdateThemeButtons() {
+    // Wait for DOM elements to be available
+    const themeButtons = document.querySelectorAll('.theme-btn');
+    if (themeButtons.length === 0) {
+      // If buttons not found, try again after a short delay
+      setTimeout(() => this.forceUpdateThemeButtons(), 50);
+      return;
+    }
+    
+    // Clear all active states first
+    themeButtons.forEach(btn => {
+      btn.classList.remove('active');
+      // Force style reset to ensure clean state
+      btn.style.removeProperty('background');
+      btn.style.removeProperty('border');
+      btn.style.removeProperty('box-shadow');
+    });
+    
+    // Set the correct active button
+    const targetButton = document.querySelector(`[data-theme="${this.currentTheme}"]`);
+    if (targetButton) {
+      targetButton.classList.add('active');
+      console.log(`Theme button updated: ${this.currentTheme} is now active`);
+    } else {
+      console.warn(`Could not find theme button for: ${this.currentTheme}`);
+    }
   }
 
   animateThemeChange() {
@@ -81,26 +128,30 @@ class ThemeManager {
   }
 
   updateThemeButtons() {
-    // Update modern theme switcher
+    // Enhanced button state management
     const themeButtons = document.querySelectorAll('.theme-btn');
-    const themeTrack = document.querySelector('.theme-toggle-track');
+    
+    if (themeButtons.length === 0) {
+      console.warn('No theme buttons found for updating');
+      return;
+    }
     
     themeButtons.forEach(button => {
       const theme = button.getAttribute('data-theme');
-      button.classList.toggle('active', theme === this.currentTheme);
+      const isActive = theme === this.currentTheme;
+      
+      // Update active class
+      button.classList.toggle('active', isActive);
+      
+      // Force style reset for inactive buttons
+      if (!isActive) {
+        button.style.removeProperty('background');
+        button.style.removeProperty('border');
+        button.style.removeProperty('box-shadow');
+      }
     });
-
-    // Update track indicator position
-    if (themeTrack) {
-      themeTrack.setAttribute('data-active', this.currentTheme);
-    }
-
-    // Also support legacy theme buttons
-    const legacyButtons = document.querySelectorAll('[data-theme-option]');
-    legacyButtons.forEach(button => {
-      const theme = button.getAttribute('data-theme-option');
-      button.classList.toggle('active', theme === this.currentTheme);
-    });
+    
+    console.log(`Theme buttons updated. Current theme: ${this.currentTheme}`);
   }
 
   setupSystemThemeListener() {
@@ -112,6 +163,23 @@ class ThemeManager {
         }
       });
     }
+    
+    // Also listen for page visibility changes to refresh the UI
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        // Page became visible, refresh the theme UI
+        setTimeout(() => {
+          this.forceUpdateThemeButtons();
+        }, 100);
+      }
+    });
+    
+    // Listen for focus events to refresh the UI
+    window.addEventListener('focus', () => {
+      setTimeout(() => {
+        this.forceUpdateThemeButtons();
+      }, 100);
+    });
   }
 }
 

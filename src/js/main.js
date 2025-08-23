@@ -136,11 +136,36 @@ function updateActiveLink(targetId) {
 
 window.addEventListener('scroll', () => updateActiveLink());
 
-// Initialize Theme Manager
+// Initialize Theme Manager with multiple fallbacks
 let themeManager;
-document.addEventListener('DOMContentLoaded', () => {
-  themeManager = new ThemeManager();
-});
+
+// Try to initialize as early as possible
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    initThemeManager();
+  });
+} else {
+  // DOM is already loaded
+  initThemeManager();
+}
+
+function initThemeManager() {
+  try {
+    themeManager = new ThemeManager();
+    console.log('ThemeManager initialized successfully');
+  } catch (error) {
+    console.error('Failed to initialize ThemeManager:', error);
+    // Retry after a short delay
+    setTimeout(() => {
+      try {
+        themeManager = new ThemeManager();
+        console.log('ThemeManager initialized on retry');
+      } catch (retryError) {
+        console.error('ThemeManager retry failed:', retryError);
+      }
+    }, 100);
+  }
+}
 
 // Form Submission
 const contactForm = document.getElementById('contact-form');
@@ -196,6 +221,7 @@ contactForm.addEventListener('submit', (e) => {
 // Filter System for Skills and Projects
 class FilterSystem {
     constructor() {
+        console.log('FilterSystem initialized');
         this.initSkillsFilter();
         this.initProjectsFilter();
     }
@@ -203,16 +229,21 @@ class FilterSystem {
     initSkillsFilter() {
         const skillsFilterBtns = document.querySelectorAll('.skills-filter .filter-btn');
         const skillCards = document.querySelectorAll('.skill-card');
+        
+        console.log('Skills filter buttons found:', skillsFilterBtns.length);
+        console.log('Skill cards found:', skillCards.length);
 
         skillsFilterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
+                console.log('Skills filter clicked:', btn.getAttribute('data-category'));
+                
                 // Remove active class from all buttons
                 skillsFilterBtns.forEach(b => b.classList.remove('active'));
                 // Add active class to clicked button
                 btn.classList.add('active');
 
                 const category = btn.getAttribute('data-category');
-                this.filterItems(skillCards, category);
+                this.filterItems(skillCards, category, 'skills');
             });
         });
     }
@@ -220,55 +251,87 @@ class FilterSystem {
     initProjectsFilter() {
         const projectsFilterBtns = document.querySelectorAll('.projects-filter .filter-btn');
         const projectCards = document.querySelectorAll('.project-card');
+        
+        console.log('Projects filter buttons found:', projectsFilterBtns.length);
+        console.log('Project cards found:', projectCards.length);
 
         projectsFilterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
+                console.log('Projects filter clicked:', btn.getAttribute('data-category'));
+                
                 // Remove active class from all buttons
                 projectsFilterBtns.forEach(b => b.classList.remove('active'));
                 // Add active class to clicked button
                 btn.classList.add('active');
 
                 const category = btn.getAttribute('data-category');
-                this.filterItems(projectCards, category);
+                this.filterItems(projectCards, category, 'projects');
             });
         });
     }
 
-    filterItems(items, category) {
-        items.forEach(item => {
+    filterItems(items, category, type = '') {
+        console.log(`Filtering ${type} items for category:`, category);
+        
+        items.forEach((item, index) => {
             const itemCategory = item.getAttribute('data-category');
+            console.log(`${type} item ${index}: category="${itemCategory}", target="${category}"`);
             
             if (category === 'all' || itemCategory === category) {
                 item.classList.remove('hide');
                 item.classList.add('show');
-                // Animate in with GSAP
-                gsap.to(item, {
-                    duration: 0.5,
-                    opacity: 1,
-                    scale: 1,
-                    y: 0,
-                    ease: "back.out(1.7)"
-                });
+                item.style.display = 'block';
+                
+                // Animate in with GSAP if available
+                if (typeof gsap !== 'undefined') {
+                    gsap.set(item, { opacity: 0, scale: 0.8, y: 20 });
+                    gsap.to(item, {
+                        duration: 0.5,
+                        opacity: 1,
+                        scale: 1,
+                        y: 0,
+                        ease: "back.out(1.7)",
+                        delay: index * 0.1
+                    });
+                } else {
+                    // Fallback animation without GSAP
+                    item.style.opacity = '1';
+                    item.style.transform = 'scale(1) translateY(0)';
+                }
             } else {
                 item.classList.remove('show');
                 item.classList.add('hide');
-                // Animate out with GSAP
-                gsap.to(item, {
-                    duration: 0.3,
-                    opacity: 0,
-                    scale: 0.8,
-                    y: 20,
-                    ease: "power2.in"
-                });
+                
+                // Animate out with GSAP if available
+                if (typeof gsap !== 'undefined') {
+                    gsap.to(item, {
+                        duration: 0.3,
+                        opacity: 0,
+                        scale: 0.8,
+                        y: 20,
+                        ease: "power2.in",
+                        onComplete: () => {
+                            item.style.display = 'none';
+                        }
+                    });
+                } else {
+                    // Fallback animation without GSAP
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.8) translateY(20px)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
             }
         });
     }
 }
 
 // Initialize filter system when DOM loads
-document.addEventListener('DOMContentLoaded', () => {
-    // Small delay to ensure all elements are rendered
-    setTimeout(() => {
-        new FilterSystem();
-    }, 100);
-});
+// NOTE: Using new FilterManager instead of legacy FilterSystem
+// document.addEventListener('DOMContentLoaded', () => {
+//     // Small delay to ensure all elements are rendered
+//     setTimeout(() => {
+//         new FilterSystem();
+//     }, 100);
+// });

@@ -101,20 +101,31 @@ body {
 .skill-card,
 .project-card {
     transition: all 0.3s ease, opacity 0.5s ease, transform 0.5s ease;
+    transform-origin: center;
 }
 
 .skill-card.hide,
 .project-card.hide {
     opacity: 0;
-    transform: scale(0.8);
+    transform: scale(0.8) translateY(20px);
     pointer-events: none;
+    display: none !important;
 }
 
 .skill-card.show,
 .project-card.show {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
     pointer-events: auto;
+    display: block !important;
+}
+
+/* Ensure cards are visible by default */
+.skill-card,
+.project-card {
+    display: block;
+    opacity: 1;
+    transform: scale(1) translateY(0);
 }
 
 .skill-card {
