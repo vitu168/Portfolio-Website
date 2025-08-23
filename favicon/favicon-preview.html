@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Preview - Cambo-TU</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            margin: 0;
+            padding: 40px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .preview-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .favicon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .favicon-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .favicon-display {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .favicon-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .browser-tab {
+            background: #f1f3f4;
+            border-radius: 8px 8px 0 0;
+            padding: 10px 15px;
+            color: #333;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            max-width: 200px;
+            margin: 20px auto;
+        }
+        
+        .tab-favicon {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+        }
+        
+        h1 {
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #84cc16, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+            max-width: 600px;
+        }
+    </style>
+</head>
+<body>
+    <div class="preview-container">
+        <h1>🎨 New Favicon Design</h1>
+        <p class="description">Your TU logo now features rounded corners (radius: 10px) with a modern gradient background and enhanced visual depth.</p>
+        
+        <div class="favicon-grid">
+            <div class="favicon-item">
+                <div class="favicon-display">
+                    <svg width="64" height="64" viewBox="0 0 32 32">
+                        <rect width="32" height="32" rx="10" ry="10" fill="url(#bgGrad)"/>
+                        <text x="16" y="22" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#84cc16" text-anchor="middle">TU</text>
+                        <defs>
+                            <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="favicon-label">64x64 (High Res)</div>
+            </div>
+            
+            <div class="favicon-item">
+                <div class="favicon-display">
+                    <svg width="32" height="32" viewBox="0 0 32 32">
+                        <rect width="32" height="32" rx="10" ry="10" fill="url(#bgGrad2)"/>
+                        <text x="16" y="22" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#84cc16" text-anchor="middle">TU</text>
+                        <defs>
+                            <linearGradient id="bgGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="favicon-label">32x32 (Standard)</div>
+            </div>
+            
+            <div class="favicon-item">
+                <div class="favicon-display">
+                    <svg width="16" height="16" viewBox="0 0 16 16">
+                        <rect width="16" height="16" rx="4" ry="4" fill="url(#bgGrad3)"/>
+                        <text x="8" y="11" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#84cc16" text-anchor="middle">TU</text>
+                        <defs>
+                            <linearGradient id="bgGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="favicon-label">16x16 (Browser Tab)</div>
+            </div>
+        </div>
+        
+        <div class="browser-tab">
+            <svg class="tab-favicon" viewBox="0 0 16 16">
+                <rect width="16" height="16" rx="4" ry="4" fill="url(#bgGrad4)"/>
+                <text x="8" y="11" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#84cc16" text-anchor="middle">TU</text>
+                <defs>
+                    <linearGradient id="bgGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+            </svg>
+            Cambo-TU Portfolio
+        </div>
+        
+        <div style="margin-top: 30px; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 10px;">
+            <h3 style="margin-top: 0;">✨ Features:</h3>
+            <ul style="text-align: left; line-height: 1.8;">
+                <li>🔘 Rounded corners (10px radius)</li>
+                <li>🎨 Modern gradient background</li>
+                <li>💎 Visual depth and shadows</li>
+                <li>📱 Responsive for all device sizes</li>
+                <li>🌟 Professional brand consistency</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

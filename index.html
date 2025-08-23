@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cambo-TU</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
+  <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="favicon/android-chrome-512x512.png">
+  <link rel="manifest" href="favicon/site.webmanifest">
+  <meta name="theme-color" content="#1e40af">
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>  
   <!-- GSAP and ScrollTrigger for Animations -->
@@ -26,6 +38,7 @@
   <link rel="stylesheet" href="src/css/about-section.css">
   <link rel="stylesheet" href="src/css/contact-form.css">
   <link rel="stylesheet" href="src/css/modern-contact.css">
+  <link rel="stylesheet" href="src/css/enhanced-contact.css">
   <link rel="stylesheet" href="src/css/language-switcher.css">
   <link rel="stylesheet" href="src/css/footer.css">
   <link rel="stylesheet" href="src/css/animations.css">
@@ -184,16 +197,16 @@
             <!-- Call to action -->
             <div class="cta-section">
               <div class="cta-buttons">
-                <a href="#contact" class="btn-primary cta-primary">
-                  <span>Let's Work Together</span>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
-                  </svg>
-                </a>
-                <a href="#projects" class="btn-secondary cta-secondary">
-                  <span>View My Work</span>
+                <a href="#projects" class="btn-primary cta-primary">
+                  <span>View My Projects</span>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M1 12L21 12M15 6L21 12L15 18"/>
+                  </svg>
+                </a>
+                <a href="#contact" class="btn-secondary cta-secondary">
+                  <span>Get in Touch</span>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
                   </svg>
                 </a>
               </div>
@@ -653,11 +666,19 @@
               <div class="form-error" id="message-error"></div>
             </div>
             
-            <button type="submit" id="contact-submit" class="modern-submit-btn">
+            <button type="submit" id="contact-submit" class="modern-submit-btn enhanced-send-btn">
               <span class="btn-text" data-translate="contact.form.submitText">Send Message</span>
-              <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-              </svg>
+              <div class="btn-icon-wrapper">
+                <svg class="btn-icon send-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+                <svg class="btn-icon success-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display: none;">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                </svg>
+                <div class="btn-loading" style="display: none;">
+                  <div class="loading-spinner"></div>
+                </div>
+              </div>
             </button>
           </form>
         </div>
@@ -753,6 +774,10 @@
   <script src="src/js/language-manager.js"></script>
   <script src="src/js/filter-manager.js"></script>
   <script src="src/js/filter-tests.js"></script>
+  <script src="src/js/nav-debugger.js"></script>
+  <script src="src/js/nav-flow-test.js"></script>
+  <script src="src/js/enhanced-button.js"></script>
+  <script src="favicon/favicon-checker.js"></script>
   <script src="src/js/main.js"></script>
 
   <!-- Initialize Project Modals -->

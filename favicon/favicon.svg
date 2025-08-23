@@ -1,0 +1,32 @@
+<!-- Enhanced SVG favicon with rounded corners and better design -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- Background with rounded corners -->
+  <rect width="32" height="32" rx="10" ry="10" fill="#1e40af"/>
+  
+  <!-- Gradient overlay for depth -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  
+  <!-- Background with gradient -->
+  <rect width="32" height="32" rx="10" ry="10" fill="url(#bgGradient)"/>
+  
+  <!-- TU text with shadow effect -->
+  <text x="16" y="22" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#84cc16" text-anchor="middle" filter="url(#shadow)">TU</text>
+  
+  <!-- Subtle highlight -->
+  <rect x="3" y="3" width="26" height="13" rx="8" ry="8" fill="url(#highlight)" opacity="0.2"/>
+  
+  <defs>
+    <linearGradient id="highlight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.4" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </linearGradient>
+  </defs>
+</svg>

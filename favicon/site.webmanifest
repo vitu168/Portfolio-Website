@@ -1,0 +1,26 @@
+{
+  "name": "Cambo-TU Portfolio",
+  "short_name": "Cambo-TU",
+  "description": "Portfolio website of Cambo-TU - Flutter Developer, UI/UX Designer",
+  "icons": [
+    {
+      "src": "android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#1e40af",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "start_url": "/",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["portfolio", "developer", "design"],
+  "prefer_related_applications": false
+}

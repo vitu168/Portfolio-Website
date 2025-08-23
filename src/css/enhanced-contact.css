@@ -1,0 +1,439 @@
+/* Enhanced Send Message Button Styles */
+
+.enhanced-send-btn {
+  position: relative;
+  background: linear-gradient(135deg, var(--accent-color) 0%, #059669 100%);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  min-height: 56px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+/* Enhanced Contact Section Styling */
+.contact-section {
+  position: relative;
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  overflow: hidden;
+}
+
+.contact-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.contact-container {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Enhanced Contact Info Card */
+.contact-info-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.contact-info-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.contact-info-header h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, var(--accent-color), #10b981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.contact-info-header p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Enhanced Contact Method Items */
+.contact-method {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.contact-method:hover {
+  background: rgba(59, 130, 246, 0.1);
+  transform: translateX(5px);
+}
+
+.contact-method-icon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--accent-color), #10b981);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.contact-method-icon svg {
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+
+.contact-method-info h4 {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.25rem;
+}
+
+.contact-method-info p,
+.contact-method-info a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-method-info a:hover {
+  color: var(--accent-color);
+}
+
+/* Enhanced Contact Form Card */
+.contact-form-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.contact-form-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+.contact-form-header h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.75rem;
+  background: linear-gradient(135deg, var(--accent-color), #10b981);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.contact-form-header p {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.enhanced-send-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+  background: linear-gradient(135deg, #2563eb 0%, #047857 100%);
+}
+
+.enhanced-send-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.enhanced-send-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+}
+
+/* Button text animation */
+.enhanced-send-btn .btn-text {
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.enhanced-send-btn:hover .btn-text {
+  transform: translateX(-2px);
+}
+
+/* Icon wrapper */
+.btn-icon-wrapper {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s ease;
+}
+
+.enhanced-send-btn:hover .btn-icon-wrapper {
+  transform: translateX(2px);
+}
+
+/* Send icon */
+.send-icon {
+  width: 20px;
+  height: 20px;
+  transition: all 0.3s ease;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.enhanced-send-btn:hover .send-icon {
+  transform: translate(-50%, -50%) rotate(10deg) scale(1.1);
+}
+
+/* Success icon */
+.success-icon {
+  width: 20px;
+  height: 20px;
+  color: #10b981;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.enhanced-send-btn.success .success-icon {
+  display: block;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.enhanced-send-btn.success .send-icon {
+  transform: translate(-50%, -50%) scale(0);
+}
+
+/* Loading spinner */
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.enhanced-send-btn.loading .btn-loading {
+  display: block !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.enhanced-send-btn.loading .send-icon,
+.enhanced-send-btn.loading .success-icon {
+  display: none;
+}
+
+.enhanced-send-btn.loading .btn-text {
+  opacity: 0.8;
+}
+
+/* Ripple effect */
+.enhanced-send-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+  z-index: 1;
+}
+
+.enhanced-send-btn:active::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Gradient background animation */
+.enhanced-send-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+  z-index: 1;
+}
+
+.enhanced-send-btn:hover::after {
+  left: 100%;
+}
+
+/* Focus styles for accessibility */
+.enhanced-send-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #3b82f6, 0 0 0 4px rgba(59, 130, 246, 0.2);
+}
+
+/* Success state */
+.enhanced-send-btn.success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+}
+
+.enhanced-send-btn.success .btn-text {
+  color: white;
+}
+
+/* Error state */
+.enhanced-send-btn.error {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Animations */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .enhanced-send-btn {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9rem;
+    min-height: 48px;
+    gap: 0.5rem;
+  }
+  
+  .btn-icon-wrapper {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .send-icon,
+  .success-icon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .loading-spinner {
+    width: 18px;
+    height: 18px;
+  }
+  
+  /* Contact section mobile adjustments */
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .contact-info-card,
+  .contact-form-card {
+    padding: 1.5rem;
+  }
+  
+  .contact-info-header h3,
+  .contact-form-header h3 {
+    font-size: 1.5rem;
+  }
+  
+  .contact-method {
+    padding: 0.75rem;
+  }
+  
+  .contact-method-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .contact-method-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Dark mode support */
+.dark .enhanced-send-btn {
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
+}
+
+.dark .enhanced-send-btn:hover {
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .enhanced-send-btn {
+    border: 2px solid white;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .enhanced-send-btn,
+  .enhanced-send-btn *,
+  .enhanced-send-btn::before,
+  .enhanced-send-btn::after {
+    transition: none;
+    animation: none;
+  }
+  
+  .enhanced-send-btn:hover {
+    transform: none;
+  }
+}
