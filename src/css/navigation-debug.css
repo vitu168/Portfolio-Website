@@ -1,0 +1,70 @@
+/* Navigation Debug and Testing Styles */
+
+/* Force visibility for testing */
+.nav-link {
+    border: 1px solid transparent !important; /* Visual debugging border */
+}
+
+.nav-link:hover {
+    border-color: rgba(59, 130, 246, 0.3) !important; /* Show hover area */
+}
+
+/* Make sure underlines are always visible when they should be */
+.nav-link::before {
+    background: #3b82f6 !important; /* Force blue color for visibility */
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5) !important; /* Add glow for visibility */
+}
+
+/* Debug info - show current hover state */
+.nav-link:hover::after {
+    content: '(hover)';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    font-size: 10px;
+    color: #3b82f6;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2px 4px;
+    border-radius: 2px;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+.nav-link.active::after {
+    content: '(active)';
+    position: absolute;
+    top: -20px;
+    left: 0;
+    font-size: 10px;
+    color: #10b981;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2px 4px;
+    border-radius: 2px;
+    white-space: nowrap;
+    z-index: 1000;
+}
+
+/* Console logging styles */
+.debug-nav {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.9);
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 12px;
+    z-index: 10000;
+    max-width: 200px;
+}
+
+.debug-nav h4 {
+    margin: 0 0 10px 0;
+    color: #4CAF50;
+}
+
+.debug-nav .current-section {
+    color: #2196F3;
+    font-weight: bold;
+}

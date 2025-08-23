@@ -6,11 +6,48 @@
 
 .nav-link {
     position: relative;
+    display: inline-block;
+    padding: 0.5rem 0;
     transition: color var(--transition-fast);
+    text-decoration: none;
+    outline: none;
+    border: none;
+}
+
+.nav-link:focus {
+    outline: none;
+    border: none;
+    box-shadow: none;
+}
+
+.nav-link:active {
+    outline: none;
+    border: none;
+    box-shadow: none;
 }
 
 .nav-link span {
     position: relative;
+    transition: color 0.3s ease;
+}
+
+/* Remove all focus/click borders and outlines */
+.nav-link,
+.nav-link:focus,
+.nav-link:active,
+.nav-link:visited {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    text-decoration: none !important;
+}
+
+.nav-link span,
+.nav-link span:focus,
+.nav-link span:active {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .nav-link::after {
@@ -21,7 +58,8 @@
     width: 0;
     height: 2px;
     background: var(--accent-color);
-    transition: width 0.25s ease-in-out;
+    border-radius: 1px;
+    transition: width 0.3s ease;
 }
 
 .dark .nav-link::after {
@@ -31,6 +69,10 @@
 .nav-link:hover::after,
 .nav-link.active::after {
     width: 100%;
+}
+
+.nav-link:hover span {
+    color: var(--accent-color);
 }
 
 .theme-toggle {

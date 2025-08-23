@@ -1,0 +1,94 @@
+/* Enhanced Navigation Styles with Underline Effects */
+
+/* Navigation container improvements */
+.navbar .flex.items-center.space-x-6 {
+    gap: 2rem;
+}
+
+/* Enhanced nav-link styles */
+.nav-link {
+    position: relative;
+    display: inline-block;
+    padding: 0.75rem 0.5rem;
+    text-decoration: none;
+    color: var(--text-primary) !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.nav-link span {
+    position: relative;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+/* Underline effect using ::before for better visibility */
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: var(--accent-color);
+    border-radius: 2px;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+    z-index: 1;
+}
+
+/* Hover effects */
+.nav-link:hover::before {
+    width: 100%;
+}
+
+.nav-link:hover span {
+    color: var(--accent-color) !important;
+}
+
+/* Active section highlighting */
+.nav-link.active::before {
+    width: 100%;
+}
+
+.nav-link.active span {
+    color: var(--accent-color) !important;
+    font-weight: 600;
+}
+
+/* Focus styles for accessibility */
+.nav-link:focus {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Dark mode support */
+.dark .nav-link {
+    color: var(--text-primary) !important;
+}
+
+.dark .nav-link::before {
+    background: var(--accent-color);
+}
+
+.dark .nav-link:hover span,
+.dark .nav-link.active span {
+    color: var(--accent-color) !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .nav-link {
+        padding: 0.5rem 0.3rem;
+        font-size: 0.9rem;
+    }
+    
+    .nav-link::before {
+        height: 2px;
+        bottom: -2px;
+    }
+}
