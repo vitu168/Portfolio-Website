@@ -20,9 +20,6 @@ class ActiveNavigationManager {
         // Setup scroll detection
         this.setupScrollDetection();
         
-        // Create debug panel
-        this.createDebugPanel();
-        
         // Set initial active section
         this.setActiveSection('home');
         
@@ -101,7 +98,6 @@ class ActiveNavigationManager {
         }
         
         this.currentSection = sectionId;
-        this.updateDebugPanel();
     }
 
     scrollToSection(sectionId) {
@@ -126,67 +122,6 @@ class ActiveNavigationManager {
         }
     }
 
-    createDebugPanel() {
-        const debugPanel = document.createElement('div');
-        debugPanel.className = 'debug-nav';
-        debugPanel.innerHTML = `
-            <h4>🧭 Navigation Debug</h4>
-            <div>Current: <span class="current-section">${this.currentSection}</span></div>
-            <div style="margin-top: 10px; font-size: 10px;">
-                <div>Links found: ${Object.keys(this.navLinks).length}</div>
-                <div>Sections: ${this.sections.join(', ')}</div>
-            </div>
-            <button onclick="window.activeNavManager.testUnderlines()" style="
-                background: #2196F3;
-                color: white;
-                border: none;
-                padding: 3px 6px;
-                border-radius: 3px;
-                font-size: 10px;
-                margin-top: 5px;
-                cursor: pointer;
-            ">Test Underlines</button>
-        `;
-        
-        document.body.appendChild(debugPanel);
-        this.debugPanel = debugPanel;
-    }
-
-    updateDebugPanel() {
-        if (this.debugPanel) {
-            const currentSpan = this.debugPanel.querySelector('.current-section');
-            if (currentSpan) {
-                currentSpan.textContent = this.currentSection;
-            }
-        }
-    }
-
-    testUnderlines() {
-        console.log('🧪 Testing navigation underlines...');
-        
-        // Test each nav link
-        Object.entries(this.navLinks).forEach(([sectionId, link]) => {
-            console.log(`Testing ${sectionId}:`, {
-                element: link,
-                hasActiveClass: link.classList.contains('active'),
-                computedStyle: window.getComputedStyle(link, '::before'),
-                position: link.style.position || 'default'
-            });
-            
-            // Force hover simulation
-            setTimeout(() => {
-                link.style.background = 'rgba(59, 130, 246, 0.1)';
-                link.classList.add('active');
-                
-                setTimeout(() => {
-                    link.style.background = '';
-                    if (sectionId !== this.currentSection) {
-                        link.classList.remove('active');
-                    }
-                }, 1000);
-            }, 500);
-        });
-    }
 }
 
 // Initialize when DOM is loaded
