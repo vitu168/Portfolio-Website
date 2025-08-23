@@ -1,0 +1,261 @@
+/* Base Styles and Global Layout */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    scroll-behavior: smooth;
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+}  
+
+.dark {
+    --bg-primary: var(--gray-900);
+    --bg-secondary: var(--gray-800);
+    --text-primary: var(--gray-50);
+    --text-secondary: var(--gray-300);
+}
+
+/* Section Title Styling */
+.section-title {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+/* Utility Classes */
+.typing-cursor::after {
+    content: '|';
+    display: inline-block;
+    color: var(--bg-secondary);
+    font-weight: 300;
+    animation: blink 0.8s infinite;
+}
+
+.dark .typing-cursor::after {
+    color: var(--text-primary);
+}
+
+@keyframes blink {
+    50% { opacity: 0; }
+}
+
+/* Skills Section Styling */
+.skills-section {
+    background: linear-gradient(135deg, var(--primary-50) 0%, var(--primary-100) 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.dark .skills-section {
+    background: linear-gradient(135deg, var(--gray-900) 0%, var(--gray-800) 100%);
+}
+
+/* Filter Buttons */
+.skills-filter,
+.projects-filter {
+    text-align: center;
+}
+
+.filter-btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 2rem;
+    border: 2px solid var(--border-color);
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    font-size: 0.875rem;
+}
+
+.dark .filter-btn {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+}
+
+.filter-btn:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+.filter-btn.active {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--bg-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--primary-500), 0.3);
+}
+
+.dark .filter-btn.active {
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--bg-secondary);
+}
+
+/* Skills and Projects Grid */
+.skills-grid,
+.projects-grid {
+    transition: all 0.5s ease;
+}
+
+.skill-card,
+.project-card {
+    transition: all 0.3s ease, opacity 0.5s ease, transform 0.5s ease;
+}
+
+.skill-card.hide,
+.project-card.hide {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+}
+
+.skill-card.show,
+.project-card.show {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+.skill-card {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius-xl);
+    box-shadow: 0 4px 6px -1px var(--shadow-color);
+    transition: all var(--transition-normal);
+    border: 2px solid transparent;
+}
+
+.dark .skill-card {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+.skill-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px var(--shadow-color), 0 10px 10px -5px var(--shadow-color);
+    border-color: var(--accent-color);
+}
+
+.skill-icon {
+    margin-bottom: 1rem;
+    border-radius: var(--border-radius-md);
+    transition: transform var(--transition-normal);
+}
+
+.skill-card:hover .skill-icon {
+    transform: scale(1.1);
+}
+
+/* Projects Section Styling */
+.project-card {
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius-xl);
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px var(--shadow-color);
+    transition: all var(--transition-normal);
+    border: 2px solid transparent;
+}
+
+.dark .project-card {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 25px -5px var(--shadow-color), 0 10px 10px -5px var(--shadow-color);
+    border-color: var(--accent-color);
+}
+
+.project-card img {
+    transition: transform var(--transition-normal);
+}
+
+.project-card:hover img {
+    transform: scale(1.05);
+}
+
+.card-header {
+    margin-bottom: 1rem;
+}
+
+.card-footer {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+/* Progress Bar Styling */
+.progress {
+    width: 100%;
+    height: 8px;
+    background-color: var(--bg-tertiary);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.dark .progress {
+    background-color: var(--bg-tertiary);
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-hover));
+    border-radius: 4px;
+    transition: width 0.6s ease;
+    position: relative;
+}
+
+.progress-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(var(--accent-rgb), 0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Card Component Base Styles */
+.card {
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius-xl);
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px var(--shadow-color);
+    transition: all var(--transition-normal);
+    border: 2px solid transparent;
+}
+
+.dark .card {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.dark .card-title {
+    color: var(--text-primary);
+}
+
+.card-content {
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+.dark .card-content {
+    color: var(--text-secondary);
+}

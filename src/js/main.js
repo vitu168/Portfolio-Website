@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
   gsap.from('.btn-primary, .btn-secondary', {
     y: 20,
     opacity: 0,
-    duration: 0.8,
+    duration: 0.8,  
     delay: 0.5,
     stagger: 0.2,
     ease: 'power3.out'
@@ -136,44 +136,11 @@ function updateActiveLink(targetId) {
 
 window.addEventListener('scroll', () => updateActiveLink());
 
-// Theme Toggle
-const toggleButton = document.getElementById('theme-toggle');
-const sunIcon = document.getElementById('sun-icon');
-const moonIcon = document.getElementById('moon-icon');
-const navbar = document.querySelector('.navbar');
-
-function updateThemeIcon(isDark) {
-  sunIcon.classList.toggle('hidden', isDark);
-  moonIcon.classList.toggle('hidden', !isDark);
-}
-
-function updateNavbarTheme(isDark) {
-  gsap.to(navbar, {
-    backgroundColor: isDark ? '#1e293b' : '#ffffff',
-    color: isDark ? '#e0f2fe' : '#1e3a8a',
-    duration: 0.3,
-    ease: 'power2.inOut'
-  });
-}
-
-toggleButton.addEventListener('click', () => {
-  const isDark = !document.body.classList.contains('dark');
-  document.body.classList.toggle('dark');
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  updateThemeIcon(isDark);
-  updateNavbarTheme(isDark);
-  updateActiveLink();
-  gsap.to(toggleButton, { rotation: 360, duration: 0.5, ease: 'power2.out' });
+// Initialize Theme Manager
+let themeManager;
+document.addEventListener('DOMContentLoaded', () => {
+  themeManager = new ThemeManager();
 });
-
-// Initialize theme
-const savedTheme = localStorage.getItem('theme');
-const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-  document.body.classList.add('dark');
-  updateThemeIcon(true);
-  updateNavbarTheme(true);
-}
 
 // Form Submission
 const contactForm = document.getElementById('contact-form');
@@ -214,14 +181,94 @@ contactForm.addEventListener('submit', (e) => {
 
   if (isValid) {
     console.log('Form submitted:', { name, email, message });
-    gsap.to('.contact-container', {
+    gsap.to('.contact-card', {
       opacity: 0.5,
       duration: 0.5,
       onComplete: () => {
         alert('Message sent! (Logged to console)');
         contactForm.reset();
-        gsap.to('.contact-container', { opacity: 1, duration: 0.5 });
+        gsap.to('.contact-card', { opacity: 1, duration: 0.5 });
       }
     });
   }
+});
+
+// Filter System for Skills and Projects
+class FilterSystem {
+    constructor() {
+        this.initSkillsFilter();
+        this.initProjectsFilter();
+    }
+
+    initSkillsFilter() {
+        const skillsFilterBtns = document.querySelectorAll('.skills-filter .filter-btn');
+        const skillCards = document.querySelectorAll('.skill-card');
+
+        skillsFilterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                skillsFilterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                const category = btn.getAttribute('data-category');
+                this.filterItems(skillCards, category);
+            });
+        });
+    }
+
+    initProjectsFilter() {
+        const projectsFilterBtns = document.querySelectorAll('.projects-filter .filter-btn');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        projectsFilterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                projectsFilterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                const category = btn.getAttribute('data-category');
+                this.filterItems(projectCards, category);
+            });
+        });
+    }
+
+    filterItems(items, category) {
+        items.forEach(item => {
+            const itemCategory = item.getAttribute('data-category');
+            
+            if (category === 'all' || itemCategory === category) {
+                item.classList.remove('hide');
+                item.classList.add('show');
+                // Animate in with GSAP
+                gsap.to(item, {
+                    duration: 0.5,
+                    opacity: 1,
+                    scale: 1,
+                    y: 0,
+                    ease: "back.out(1.7)"
+                });
+            } else {
+                item.classList.remove('show');
+                item.classList.add('hide');
+                // Animate out with GSAP
+                gsap.to(item, {
+                    duration: 0.3,
+                    opacity: 0,
+                    scale: 0.8,
+                    y: 20,
+                    ease: "power2.in"
+                });
+            }
+        });
+    }
+}
+
+// Initialize filter system when DOM loads
+document.addEventListener('DOMContentLoaded', () => {
+    // Small delay to ensure all elements are rendered
+    setTimeout(() => {
+        new FilterSystem();
+    }, 100);
 });

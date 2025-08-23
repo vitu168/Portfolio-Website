@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cambo-TU</title>
   <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>  
   <!-- GSAP and ScrollTrigger for Animations -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -13,60 +13,108 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <!-- External Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+  <!-- External Stylesheets -->
+  <link rel="stylesheet" href="src/css/theme.css">
+  <link rel="stylesheet" href="src/css/main.css">
+  <link rel="stylesheet" href="src/css/components.css">
+  <link rel="stylesheet" href="src/css/ui-components.css">
+  <link rel="stylesheet" href="src/css/animations.css">
 </head>
-<body class="relative">
+<body class="relative" data-theme="auto">
   <!-- Navbar -->
-  <nav class="navbar bg-white dark:bg-slate-800 shadow-sm fixed w-full z-20">
+  <nav class="navbar shadow-sm fixed w-full z-20" style="background-color: var(--bg-secondary);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between h-16 items-center">
         <div class="flex items-center">
-          <h1 class="text-2xl font-bold text-blue-600 dark:text-blue-400">Cambo-TU</h1>
+          <h1 class="text-2xl font-bold" style="color: var(--accent-color);">Cambo-TU</h1>
         </div>
         <div class="flex items-center space-x-6">
-          <a href="#home" class="nav-link text-blue-900 dark:text-blue-100 font-medium"><span>Home</span></a>
-          <a href="#about" class="nav-link text-blue-900 dark:text-blue-100 font-medium"><span>About</span></a>
-          <a href="#skills" class="nav-link text-blue-900 dark:text-blue-100 font-medium"><span>Skills</span></a>
-          <a href="#projects" class="nav-link text-blue-900 dark:text-blue-100 font-medium"><span>Projects</span></a>
-          <a href="#contact" class="nav-link text-blue-900 dark:text-blue-100 font-medium"><span>Contact</span></a>
-          <button id="theme-toggle" class="theme-toggle text-blue-900 dark:text-blue-100" aria-label="Toggle theme">
-            <svg id="theme-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path id="sun-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-              <path id="moon-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
-            </svg>
-          </button>
+          <a href="#home" class="nav-link font-medium" style="color: var(--text-primary);"><span>Home</span></a>
+          <a href="#about" class="nav-link font-medium" style="color: var(--text-primary);"><span>About</span></a>
+          <a href="#skills" class="nav-link font-medium" style="color: var(--text-primary);"><span>Skills</span></a>
+          <a href="#projects" class="nav-link font-medium" style="color: var(--text-primary);"><span>Projects</span></a>
+          <a href="#contact" class="nav-link font-medium" style="color: var(--text-primary);"><span>Contact</span></a>
+          
+          <!-- Modern Theme Switcher -->
+          <div class="theme-switcher-modern">
+            <div class="theme-toggle-container">
+              <div class="theme-toggle-track" role="radiogroup" aria-label="Theme selection">
+                <div class="theme-toggle-indicator"></div>
+                <div class="theme-options">
+                  <button class="theme-btn" data-theme="light" title="Light Mode" role="radio" aria-label="Light theme">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="5"></circle>
+                      <line x1="12" y1="1" x2="12" y2="3"></line>
+                      <line x1="12" y1="21" x2="12" y2="23"></line>
+                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                      <line x1="1" y1="12" x2="3" y2="12"></line>
+                      <line x1="21" y1="12" x2="23" y2="12"></line>
+                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                  </button>
+                  <button class="theme-btn" data-theme="dark" title="Dark Mode" role="radio" aria-label="Dark theme">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                  </button>
+                  <button class="theme-btn" data-theme="auto" title="System Auto" role="radio" aria-label="Auto theme (follows system)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                      <line x1="8" y1="21" x2="16" y2="21"></line>
+                      <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </nav>
 
-  <!-- Hero Section -->
   <section id="home" class="hero-bg relative min-h-screen flex items-center">
     <div class="max-w-7xl mx-auto px-4 py-24 flex flex-col items-center justify-center z-10">
       <div class="hero-content">
-        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-4 leading-tight">Hi, I'm Lang Vithu</h1>
-        <p class="text-lg sm:text-xl md:text-2xl text-white mb-6 typing-cursor font-medium" id="animated-text"></p>
-        <p class="text-white mb-8 font-light">Welcome to my digital space! I'm a passionate Flutter Developer and UX/UI Designer creating beautiful and functional apps.</p>
+        <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 leading-tight" style="color: var(--bg-secondary);">Hi, I'm Lang Vithu</h1>
+        <p class="text-lg sm:text-xl md:text-2xl mb-6 typing-cursor font-medium" style="color: var(--bg-secondary);" id="animated-text"></p>
+        <p class="mb-8 font-light" style="color: var(--bg-secondary);">Welcome to my digital space! I'm a passionate Flutter Developer and UX/UI Designer creating beautiful and functional apps.</p>
         <div class="space-x-4">
-          <a href="#projects" class="btn-primary inline-block text-white px-6 py-3 font-semibold text-lg rounded-full">View My Work</a>
-          <a href="#" class="btn-secondary inline-block text-white px-6 py-3 font-semibold text-lg rounded-full" download>Download Resume</a>
+          <a href="#projects" class="btn btn-primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <rect x="7" y="7" width="3" height="9"></rect>
+              <rect x="14" y="7" width="3" height="5"></rect>
+            </svg>
+            View My Work
+          </a>
+          <button class="btn btn-secondary" onclick="modalManager?.open('resume')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14,2 14,8 20,8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+            </svg>
+            Download Resume
+          </button>
         </div>
       </div>
     </div>
   </section>
 
   <!-- About Section -->
-  <section id="about" class="py-24 bg-white dark:bg-slate-800">
+  <section id="about" class="py-24" style="background-color: var(--bg-secondary);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="section-title text-2xl md:text-3xl font-bold text-blue-900 dark:text-blue-100 mb-12 text-center">About Me</h2>
+      <h2 class="section-title text-2xl md:text-3xl font-bold mb-12 text-center" style="color: var(--text-primary);">About Me</h2>
       <div class="profile-container relative">
         <div class="flex flex-col md:flex-row items-center gap-12 z-10">
           <div class="md:w-1/2 mb-8 md:mb-0">
-            <img id="profile-image" src="photo_2025-05-26_21-26-51.jpg" alt="Lang Vithu's Profile Picture" class="profile-image mx-auto">
+            <img id="profile-image" src="src/assets/images/profile/photo_2025-05-26_21-26-51.jpg" alt="Lang Vithu's Profile Picture" class="profile-image mx-auto">
           </div>
           <div class="md:w-1/2">
-            <p class="profile-text text-blue-700 dark:text-blue-200 leading-relaxed text-lg font-light">
+            <p class="profile-text leading-relaxed text-lg font-light" style="color: var(--text-secondary);">
               I'm a passionate Flutter Developer and UX/UI Designer dedicated to creating seamless mobile applications and visually captivating interfaces. With expertise in Flutter, Dart, and tools like Figma, I craft cross-platform apps that prioritize performance and user delight. My design philosophy centers on intuitive, user-friendly experiences that leave a lasting impression. When I'm not coding or designing, I'm exploring innovative ways to enhance app interactivity or sketching creative UI concepts.
             </p>
           </div>
@@ -78,84 +126,347 @@
   <!-- Skills Section -->
 <section id="skills" class="skills-section py-24">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <h2 class="section-title text-2xl md:text-3xl font-bold text-blue-900 dark:text-blue-100 mb-12 text-center">My Skills</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-      <div class="skill-card text-center">
-        <img src="flutter.png" alt="flutter" viewBox="0 0 24 24" aria-label="Flutter & Dart" width="48" height="48" class="skill-icon mx-auto">
-          <path d="M14.314 0L2.698 11.506l5.898 5.898L20.202 5.799h-5.888zm5.888 6.506L8.596 18.112l3.498 3.498c.682.682 1.787.682 2.47 0l5.638-5.638c.682-.682.682-1.787 0-2.47L17.01 10.31l3.192-3.804zM2.698 12.91L8.596 18.81l-5.898 5.898h11.616L2.698 13.202v-.293z"/>
-        </svg>
-        <h3 class="text-xl font-semibold text-blue-900 dark:text-blue-100 mb-3">Flutter & Dart</h3>
-        <p class="text-blue-700 dark:text-blue-200 font-light">Building high-performance cross-platform apps</p>
+    <h2 class="section-title text-2xl md:text-3xl font-bold mb-12 text-center" style="color: var(--text-primary);">My Skills</h2>
+    
+    <!-- Skills Category Filter -->
+    <div class="skills-filter mb-12">
+      <div class="flex flex-wrap justify-center gap-4">
+        <button class="filter-btn active" data-category="all">All Skills</button>
+        <button class="filter-btn" data-category="frontend">Frontend</button>
+        <button class="filter-btn" data-category="mobile">Mobile Development</button>
+        <button class="filter-btn" data-category="design">UI/UX Design</button>
+        <button class="filter-btn" data-category="backend">Backend & API</button>
       </div>
-      <div class="skill-card text-center">
-        <img src="768px-adobe_photoshop_cc_icon-svg.png" alt="768px-adobe_photoshop_cc_icon-svg.png" viewBox="0 0 24 24" aria-label="UX/UI" width="48" height="48" class="skill-icon mx-auto">
-          <!-- Replace with actual UX/UI SVG path -->
-          <path d="M3 3v18h18V3H3zm16 16H5V5h14v14zM9 7h6v2H9V7zm0 4h6v2H9v-2zm0 4h4v2H9v-2z"/>
-        </svg>
-        <h3 class="text-xl font-semibold text-blue-900 dark:text-blue-100 mb-3">UX/UI Design</h3>
-        <p class="text-blue-700 dark:text-blue-200 font-light">Crafting intuitive and engaging interfaces</p>
+    </div>
+
+    <!-- Skills Grid -->
+    <div class="skills-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+      <!-- Frontend Skills -->
+      <div class="card skill-card" data-category="frontend">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5" width="48" height="48" class="skill-icon mx-auto">
+        <h3 class="card-title text-center">HTML5</h3>
+        <p class="card-content text-center">Semantic markup and modern web standards</p>
+        <div class="progress mt-4">
+          <div class="progress-bar" style="width: 95%"></div>
+        </div>
+        <div class="text-center mt-2">
+          <span class="badge badge-primary">Expert</span>
+        </div>
       </div>
-      <div class="skill-card text-center">
-        <img src="figma-logo.png" alt="figma-logo.png" viewBox="0 0 24 24" aria-label="Figma" width="48" height="48" class="skill-icon mx-auto">
-          <!-- Replace with actual Figma SVG path -->
-          <path d="M12 12c0-1.6 1.3-2.9 2.9-2.9s2.9 1.3 2.9 2.9-1.3 2.9-2.9 2.9S12 13.6 12 12zm-2.9-5.8c0-1.6 1.3-2.9 2.9-2.9s2.9 1.3 2.9 2.9S13.6 9.1 12 9.1 9.1 7.8 9.1 6.2zm0 11.6c0-1.6 1.3-2.9 2.9-2.9s2.9 1.3 2.9 2.9-1.3 2.9-2.9 2.9S9.1 19.4 9.1 17.8zm5.8-5.8H9.1c-1.6 0-2.9-1.3-2.9-2.9S7.5 9.1 9.1 9.1h5.8c1.6 0 2.9 1.3 2.9 2.9s-1.3 2.9-2.9 2.9zm-5.8-5.8H6.2c-1.6 0-2.9-1.3-2.9-2.9S4.6 3.3 6.2 3.3h2.9c1.6 0 2.9 1.3 2.9 2.9S10.7 9.1 9.1 9.1z"/>
-        </svg>
-        <h3 class="text-xl font-semibold text-blue-900 dark:text-blue-100 mb-3">Figma</h3>
-        <p class="text-blue-700 dark:text-blue-200 font-light">Designing and prototyping modern UIs</p>
+
+      <div class="card skill-card" data-category="frontend">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3" width="48" height="48" class="skill-icon mx-auto">
+        <h3 class="card-title text-center">CSS3</h3>
+        <p class="card-content text-center">Advanced styling with animations and layouts</p>
+        <div class="progress mt-4">
+          <div class="progress-bar" style="width: 90%"></div>
+        </div>
+        <div class="text-center mt-2">
+          <span class="badge badge-primary">Expert</span>
+        </div>
       </div>
-      <div class="skill-card text-center">
-        <img src="8010472.png" alt="8010472.png" viewBox="0 0 24 24" aria-label="Flutter & Dart" width="48" height="48" class="skill-icon mx-auto">
-          <path d="M9 3v2H5v4H3V5a2 2 0 012-2h4zm12 0h-4v2h4a2 2 0 012 2v4h-2V5zm0 16v-4h2v4a2 2 0 01-2 2h-4v-2h4zM3 15h2v4h4v2H5a2 2 0 01-2-2v-4zm8-10h2v6h6v2h-6v6h-2v-6H5v-2h6V5z"/>
-        </svg>
-        <h3 class="text-xl font-semibold text-blue-900 dark:text-blue-100 mb-3">API Integration</h3>
-        <p class="text-blue-700 dark:text-blue-200 font-light">Seamless backend connectivity for dynamic apps</p>
+
+      <div class="card skill-card" data-category="frontend">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" width="48" height="48" class="skill-icon mx-auto">
+        <h3 class="card-title text-center">JavaScript</h3>
+        <p class="card-content text-center">Modern ES6+ development and frameworks</p>
+        <div class="progress mt-4">
+          <div class="progress-bar" style="width: 88%"></div>
+        </div>
+        <div class="text-center mt-2">
+          <span class="badge badge-success">Advanced</span>
+        </div>
+      </div>
+
+      <!-- Mobile Development Skills -->
+      <div class="card skill-card" data-category="mobile">
+        <img src="src/assets/images/skills/flutter.png" alt="Flutter" width="48" height="48" class="skill-icon mx-auto">
+        <h3 class="card-title text-center">Flutter & Dart</h3>
+        <p class="card-content text-center">Building high-performance cross-platform apps</p>
+        <div class="progress mt-4">
+          <div class="progress-bar" style="width: 95%"></div>
+        </div>
+        <div class="text-center mt-2">
+          <span class="badge badge-primary">Expert</span>
+        </div>
+      </div>
+
+      <div class="card skill-card" data-category="mobile">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg" alt="Android" width="48" height="48" class="skill-icon mx-auto">
+        <h3 class="card-title text-center">Android Development</h3>
+        <p class="card-content text-center">Native Android apps with Kotlin/Java</p>
+        <div class="progress mt-4">
+          <div class="progress-bar" style="width: 80%"></div>
+        </div>
+        <div class="text-center mt-2">
+          <span class="badge badge-success">Advanced</span>
+        </div>
+      </div>
+
+      <!-- Design Skills -->
+      <div class="card skill-card" data-category="design">
+        <img src="src/assets/images/skills/figma-logo.png" alt="Figma" width="48" height="48" class="skill-icon mx-auto">
+        <h3 class="card-title text-center">Figma</h3>
+        <p class="card-content text-center">Designing and prototyping modern UIs</p>
+        <div class="progress mt-4">
+          <div class="progress-bar" style="width: 92%"></div>
+        </div>
+        <div class="text-center mt-2">
+          <span class="badge badge-primary">Expert</span>
+        </div>
+      </div>
+
+      <div class="card skill-card" data-category="design">
+        <img src="src/assets/images/skills/768px-adobe_photoshop_cc_icon-svg.png" alt="UX/UI Design" width="48" height="48" class="skill-icon mx-auto">
+        <h3 class="card-title text-center">UX/UI Design</h3>
+        <p class="card-content text-center">Crafting intuitive and engaging interfaces</p>
+        <div class="progress mt-4">
+          <div class="progress-bar" style="width: 87%"></div>
+        </div>
+        <div class="text-center mt-2">
+          <span class="badge badge-success">Advanced</span>
+        </div>
+      </div>
+
+      <div class="card skill-card" data-category="design">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" alt="Adobe Photoshop" width="48" height="48" class="skill-icon mx-auto">
+        <h3 class="card-title text-center">Adobe Photoshop</h3>
+        <p class="card-content text-center">Graphics and photo editing</p>
+        <div class="progress mt-4">
+          <div class="progress-bar" style="width: 75%"></div>
+        </div>
+        <div class="text-center mt-2">
+          <span class="badge badge-warning">Intermediate</span>
+        </div>
+      </div>
+
+      <!-- Backend & API Skills -->
+      <div class="card skill-card" data-category="backend">
+        <img src="src/assets/images/skills/8010472.png" alt="API Integration" width="48" height="48" class="skill-icon mx-auto">
+        <h3 class="card-title text-center">API Integration</h3>
+        <p class="card-content text-center">RESTful APIs and backend connectivity</p>
+        <div class="progress mt-4">
+          <div class="progress-bar" style="width: 85%"></div>
+        </div>
+        <div class="text-center mt-2">
+          <span class="badge badge-success">Advanced</span>
+        </div>
+      </div>
+
+      <div class="card skill-card" data-category="backend">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg" alt="Firebase" width="48" height="48" class="skill-icon mx-auto">
+        <h3 class="card-title text-center">Firebase</h3>
+        <p class="card-content text-center">Backend-as-a-Service and real-time database</p>
+        <div class="progress mt-4">
+          <div class="progress-bar" style="width: 82%"></div>
+        </div>
+        <div class="text-center mt-2">
+          <span class="badge badge-success">Advanced</span>
+        </div>
+      </div>
+
+      <div class="card skill-card" data-category="backend">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" width="48" height="48" class="skill-icon mx-auto">
+        <h3 class="card-title text-center">Node.js</h3>
+        <p class="card-content text-center">Server-side JavaScript development</p>
+        <div class="progress mt-4">
+          <div class="progress-bar" style="width: 70%"></div>
+        </div>
+        <div class="text-center mt-2">
+          <span class="badge badge-warning">Intermediate</span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
   <!-- Projects Section -->
-  <section id="projects" class="py-24 bg-white dark:bg-slate-800">
+  <section id="projects" class="py-24" style="background-color: var(--bg-secondary);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="section-title text-2xl md:text-3xl font-bold text-blue-900 dark:text-blue-100 mb-12 text-center">My Projects</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="project-card">
-          <img src="Bebop-Screenshots-1-1.png" alt="Note-Taking App" class="w-full h-48 object-cover">
-          <div class="project-content">
-            <h3 class="project-title">Note-Taking App</h3>
-            <p class="project-description">A cross-platform note-taking app built with Flutter and API backend integration, featuring seamless data syncing and a sleek UI.</p>
-            <a href="#" class="project-link">
-              View Project
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </a>
+      <h2 class="section-title text-2xl md:text-3xl font-bold mb-12 text-center" style="color: var(--text-primary);">My Projects</h2>
+      
+      <!-- Projects Category Filter -->
+      <div class="projects-filter mb-12">
+        <div class="flex flex-wrap justify-center gap-4">
+          <button class="filter-btn active" data-category="all">All Projects</button>
+          <button class="filter-btn" data-category="mobile">Mobile Apps</button>
+          <button class="filter-btn" data-category="web">Web Development</button>
+          <button class="filter-btn" data-category="design">UI/UX Design</button>
+          <button class="filter-btn" data-category="personal">Personal Projects</button>
+        </div>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Mobile Apps -->
+        <div class="card project-card" data-category="mobile">
+          <img src="src/assets/images/projects/Bebop-Screenshots-1-1.png" alt="Note-Taking App" class="w-full h-48 object-cover">
+          <div class="card-content">
+            <div class="card-header">
+              <h3 class="card-title">Note-Taking App</h3>
+              <div class="flex gap-2 mt-2">
+                <span class="badge badge-primary">Flutter</span>
+                <span class="badge badge-success">API</span>
+                <span class="badge badge-warning">SQLite</span>
+              </div>
+            </div>
+            <p class="card-content">A cross-platform note-taking app built with Flutter and API backend integration, featuring seamless data syncing and a sleek UI.</p>
+            <div class="card-footer">
+              <button class="btn btn-primary btn-sm" onclick="modalManager?.open('project-1')">
+                View Details
+              </button>
+              <a href="#" class="btn btn-ghost btn-sm">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15,3 21,3 21,9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                Live Demo
+              </a>
+            </div>
           </div>
         </div>
-        <div class="project-card">
-          <img src="on-demand-grocery-delivery-app-development-min-1.jpg" alt="Grocery App" class="w-full h-48 object-cover">
-          <div class="project-content">
-            <h3 class="project-title">Grocery App</h3>
-            <p class="project-description">A Flutter-based grocery shopping app with API integration for real-time inventory and user-friendly navigation.</p>
-            <a href="#" class="project-link">
-              View Project
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </a>
+
+        <div class="card project-card" data-category="mobile">
+          <img src="src/assets/images/projects/on-demand-grocery-delivery-app-development-min-1.jpg" alt="Grocery App" class="w-full h-48 object-cover">
+          <div class="card-content">
+            <div class="card-header">
+              <h3 class="card-title">Grocery Delivery App</h3>
+              <div class="flex gap-2 mt-2">
+                <span class="badge badge-primary">Flutter</span>
+                <span class="badge badge-warning">E-commerce</span>
+                <span class="badge badge-error">Firebase</span>
+              </div>
+            </div>
+            <p class="card-content">A Flutter-based grocery shopping app with API integration for real-time inventory and user-friendly navigation.</p>
+            <div class="card-footer">
+              <button class="btn btn-primary btn-sm" onclick="modalManager?.open('project-2')">
+                View Details
+              </button>
+              <a href="#" class="btn btn-ghost btn-sm">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15,3 21,3 21,9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                Live Demo
+              </a>
+            </div>
           </div>
         </div>
-        <div class="project-card">
-          <img src="10-educational-apps-for-kids.jpg" alt="KidApp" class="w-full h-48 object-cover">
-          <div class="project-content">
-            <h3 class="project-title">KidApp</h3>
-            <p class="project-description">A vibrant children's app designed in Figma and implemented in Flutter with engaging animations and interactive features.</p>
-            <a href="#" class="project-link">
-              View Project
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </a>
+
+        <div class="card project-card" data-category="mobile">
+          <img src="src/assets/images/projects/10-educational-apps-for-kids.jpg" alt="KidApp" class="w-full h-48 object-cover">
+          <div class="card-content">
+            <div class="card-header">
+              <h3 class="card-title">Educational Kids App</h3>
+              <div class="flex gap-2 mt-2">
+                <span class="badge badge-success">Flutter</span>
+                <span class="badge badge-error">Education</span>
+                <span class="badge badge-warning">Animations</span>
+              </div>
+            </div>
+            <p class="card-content">A vibrant children's app designed in Figma and implemented in Flutter with engaging animations and interactive features.</p>
+            <div class="card-footer">
+              <button class="btn btn-primary btn-sm" onclick="modalManager?.open('project-3')">
+                View Details
+              </button>
+              <a href="#" class="btn btn-ghost btn-sm">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15,3 21,3 21,9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                Live Demo
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Web Development Projects -->
+        <div class="card project-card" data-category="web">
+          <img src="src/assets/images/projects/photo_2025-05-26_21-26-51.jpg" alt="Portfolio Website" class="w-full h-48 object-cover">
+          <div class="card-content">
+            <div class="card-header">
+              <h3 class="card-title">Portfolio Website</h3>
+              <div class="flex gap-2 mt-2">
+                <span class="badge badge-primary">HTML5</span>
+                <span class="badge badge-success">CSS3</span>
+                <span class="badge badge-warning">JavaScript</span>
+              </div>
+            </div>
+            <p class="card-content">A modern, responsive portfolio website showcasing my skills and projects with advanced UI components and theme system.</p>
+            <div class="card-footer">
+              <button class="btn btn-primary btn-sm" onclick="modalManager?.open('project-4')">
+                View Details
+              </button>
+              <a href="#" class="btn btn-ghost btn-sm">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2 2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15,3 21,3 21,9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                Live Demo
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Design Projects -->
+        <div class="card project-card" data-category="design">
+          <img src="src/assets/images/projects/image.png.jpg" alt="UI Design Concepts" class="w-full h-48 object-cover">
+          <div class="card-content">
+            <div class="card-header">
+              <h3 class="card-title">UI Design Concepts</h3>
+              <div class="flex gap-2 mt-2">
+                <span class="badge badge-primary">Figma</span>
+                <span class="badge badge-success">UI Design</span>
+                <span class="badge badge-warning">Prototyping</span>
+              </div>
+            </div>
+            <p class="card-content">Collection of modern UI design concepts and prototypes created in Figma for various mobile and web applications.</p>
+            <div class="card-footer">
+              <button class="btn btn-primary btn-sm" onclick="modalManager?.open('project-5')">
+                View Details
+              </button>
+              <a href="#" class="btn btn-ghost btn-sm">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15,3 21,3 21,9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                View Design
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Personal Projects -->
+        <div class="card project-card" data-category="personal">
+          <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&h=200&fit=crop" alt="Personal Project" class="w-full h-48 object-cover">
+          <div class="card-content">
+            <div class="card-header">
+              <h3 class="card-title">Expense Tracker</h3>
+              <div class="flex gap-2 mt-2">
+                <span class="badge badge-primary">Flutter</span>
+                <span class="badge badge-success">SQLite</span>
+                <span class="badge badge-warning">Charts</span>
+              </div>
+            </div>
+            <p class="card-content">A personal expense tracking app with beautiful charts and analytics to help manage daily finances effectively.</p>
+            <div class="card-footer">
+              <button class="btn btn-primary btn-sm" onclick="modalManager?.open('project-6')">
+                View Details
+              </button>
+              <a href="#" class="btn btn-ghost btn-sm">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15,3 21,3 21,9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                GitHub
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -163,35 +474,53 @@
   </section>
 
   <!-- Contact Section -->
-  <section id="contact" class="contact-section py-24">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="section-title text-2xl md:text-3xl font-bold text-blue-900 dark:text-blue-100 mb-12 text-center">Get in Touch</h2>
+  <section id="contact" class="contact-section py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <h2 class="section-title text-2xl md:text-3xl font-bold mb-4" style="color: var(--text-primary);">Get in Touch</h2>
+        <p class="text-lg" style="color: var(--text-secondary);">Let's create something amazing together</p>
+      </div>
+      
       <div class="contact-container">
-        <div class="contact-header">
-          <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Email Icon">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-          </svg>
-          <h3 class="text-xl font-semibold text-blue-900 dark:text-blue-100">Let's Connect!</h3>
+        <div class="contact-card">
+          <div class="contact-header">
+            <div class="contact-icon-wrapper">
+              <svg class="contact-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Message Icon">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+              </svg>
+            </div>
+            <div class="contact-info">
+              <h3 class="contact-title">Send me a message</h3>
+              <p class="contact-subtitle">I'll get back to you within 24 hours</p>
+            </div>
+          </div>
+          
+          <form id="contact-form" class="contact-form">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" id="name" class="form-input" placeholder="Your name" required aria-describedby="name-error">
+                <p class="form-error hidden" id="name-error">Please enter a valid name</p>
+              </div>
+              <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" class="form-input" placeholder="your@email.com" required aria-describedby="email-error">
+                <p class="form-error hidden" id="email-error">Please enter a valid email</p>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="message" class="form-label">Message</label>
+              <textarea id="message" class="form-input form-textarea" rows="4" placeholder="Tell me about your project..." required aria-describedby="message-error"></textarea>
+              <p class="form-error hidden" id="message-error">Please enter a message</p>
+            </div>
+            <button type="submit" id="contact-submit" class="contact-btn">
+              <span class="btn-text">Send Message</span>
+              <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+              </svg>
+            </button>
+          </form>
         </div>
-        <p class="text-blue-700 dark:text-blue-200 mb-6 font-light text-center">I'd love to hear from you. Drop me a message, and I'll get back to you soon!</p>
-        <form id="contact-form" class="space-y-6">
-          <div>
-            <label for="name" class="block text-blue-900 dark:text-blue-100 font-medium mb-2">Name</label>
-            <input type="text" id="name" class="contact-input" required aria-describedby="name-error">
-            <p class="text-red-400 text-sm mt-1 hidden" id="name-error">Please enter a valid name</p>
-          </div>
-          <div>
-            <label for="email" class="block text-blue-900 dark:text-blue-100 font-medium mb-2">Email</label>
-            <input type="email" id="email" class="contact-input" required aria-describedby="email-error">
-            <p class="text-red-400 text-sm mt-1 hidden" id="email-error">Please enter a valid email</p>
-          </div>
-          <div>
-            <label for="message" class="block text-blue-900 dark:text-blue-100 font-medium mb-2">Message</label>
-            <textarea id="message" class="contact-input" rows="5" required aria-describedby="message-error"></textarea>
-            <p class="text-red-400 text-sm mt-1 hidden" id="message-error">Please enter a message</p>
-          </div>
-          <button type="submit" id="contact-submit" class="contact-btn">Send Message</button>
-        </form>
       </div>
     </div>
   </section>
@@ -201,31 +530,31 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="footer-content grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="footer-column">
-          <h3 class="text-blue-100">Quick Links</h3>
+          <h3 style="color: var(--text-primary);">Quick Links</h3>
           <ul>
-            <li><a href="#home" class="footer-link text-blue-200">Home</a></li>
-            <li><a href="#about" class="footer-link text-blue-200">About</a></li>
-            <li><a href="#skills" class="footer-link text-blue-200">Skills</a></li>
-            <li><a href="#projects" class="footer-link text-blue-200">Projects</a></li>
-            <li><a href="#contact" class="footer-link text-blue-200">Contact</a></li>
+            <li><a href="#home" class="footer-link" style="color: var(--text-secondary);">Home</a></li>
+            <li><a href="#about" class="footer-link" style="color: var(--text-secondary);">About</a></li>
+            <li><a href="#skills" class="footer-link" style="color: var(--text-secondary);">Skills</a></li>
+            <li><a href="#projects" class="footer-link" style="color: var(--text-secondary);">Projects</a></li>
+            <li><a href="#contact" class="footer-link" style="color: var(--text-secondary);">Contact</a></li>
           </ul>
         </div>
         <div class="footer-column">
-          <h3 class="text-blue-100">Contact Info</h3>
+          <h3 style="color: var(--text-primary);">Contact Info</h3>
           <ul>
-            <li class="text-blue-200 font-light mb-2 flex items-center gap-2">
+            <li class="font-light mb-2 flex items-center gap-2" style="color: var(--text-secondary);">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Email">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
               langvithu081@gmail.com
             </li>
-            <li class="text-blue-200 font-light mb-2 flex items-center gap-2">
+            <li class="font-light mb-2 flex items-center gap-2" style="color: var(--text-secondary);">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Phone">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
               081578115
             </li>
-            <li class="text-blue-200 font-light flex items-center gap-2">
+            <li class="font-light flex items-center gap-2" style="color: var(--text-secondary);">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Location">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -235,29 +564,29 @@
           </ul>
         </div>
         <div class="footer-column">
-          <h3 class="text-blue-100">Follow Me</h3>
+          <h3 style="color: var(--text-primary);">Follow Me</h3>
           <div class="flex space-x-4">
-            <a href="https://www.facebook.com/share/1AqLQxaVU7/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="social-icon text-blue-200">
+            <a href="https://www.facebook.com/share/1AqLQxaVU7/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="social-icon" style="color: var(--text-secondary);">
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-label="Facebook">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
               </svg>
             </a>
-            <a href="https://www.tiktok.com/@mosashi07" target="_blank" rel="noopener noreferrer" class="social-icon text-blue-200">
+            <a href="https://www.tiktok.com/@mosashi07" target="_blank" rel="noopener noreferrer" class="social-icon" style="color: var(--text-secondary);">
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-label="TikTok">
                 <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.55 2.89 2.89 0 0 1 .88.13V9.65a6.34 6.34 0 0 0-1-.09A6.34 6.34 0 0 0 5 21a6.34 6.34 0 0 0 10.86-4.43v-7a8.29 8.29 0 0 0 4.52 1.32V7.44a4.83 4.83 0 0 1-1.79-.75z"/>
               </svg>
             </a>
-            <a href="#" class="social-icon text-blue-200">
+            <a href="#" class="social-icon" style="color: var(--text-secondary);">
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-label="GitHub">
                 <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
               </svg>
             </a>
-            <a href="#" class="social-icon text-blue-200">
+            <a href="#" class="social-icon" style="color: var(--text-secondary);">
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-label="LinkedIn">
                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
               </svg>
             </a>
-            <a href="#" class="social-icon text-blue-200">
+            <a href="#" class="social-icon" style="color: var(--text-secondary);">&gt;
               <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-label="Twitter">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
               </svg>
@@ -266,12 +595,273 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p class="text-blue-200 font-light">© 2025 Cambo-TU | Designed with ❤️ by Lang Vithu</p>
+        <p class="font-light" style="color: var(--text-secondary);">© 2025 Cambo-TU | Designed with ❤️ by Lang Vithu</p>
       </div>
     </div>
   </footer>
 
   <!-- External Script -->
-  <script src="script.js"></script>
+  <script src="src/js/components.js"></script>
+  <script src="src/js/main.js"></script>
+
+  <!-- Initialize Project Modals -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Wait for modalManager to be initialized
+      setTimeout(() => {
+        if (window.modalManager) {
+          // Create project modals
+          modalManager.create('project-1', `
+            <div class="text-center mb-6">
+              <img src="src/assets/images/projects/Bebop-Screenshots-1-1.png" alt="Note-Taking App" class="w-full max-w-md mx-auto rounded-lg shadow-lg">
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="font-semibold text-lg mb-2">Technologies Used:</h4>
+                <div class="flex flex-wrap gap-2">
+                  <span class="badge badge-primary">Flutter</span>
+                  <span class="badge badge-success">Dart</span>
+                  <span class="badge badge-warning">REST API</span>
+                  <span class="badge badge-error">SQLite</span>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-semibold text-lg mb-2">Features:</h4>
+                <ul class="list-disc list-inside space-y-1 text-sm">
+                  <li>Real-time synchronization across devices</li>
+                  <li>Rich text editing with formatting options</li>
+                  <li>Offline support with local storage</li>
+                  <li>Search and organize notes efficiently</li>
+                  <li>Material Design 3 UI components</li>
+                </ul>
+              </div>
+              <div class="flex gap-3 pt-4">
+                <a href="#" class="btn btn-primary flex-1">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15,3 21,3 21,9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                  Live Demo
+                </a>
+                <a href="#" class="btn btn-secondary flex-1">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                  </svg>
+                  Source Code
+                </a>
+              </div>
+            </div>
+          `, { title: 'Note-Taking App Details' });
+
+          modalManager.create('project-2', `
+            <div class="text-center mb-6">
+              <img src="src/assets/images/projects/on-demand-grocery-delivery-app-development-min-1.jpg" alt="Grocery App" class="w-full max-w-md mx-auto rounded-lg shadow-lg">
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="font-semibold text-lg mb-2">Technologies Used:</h4>
+                <div class="flex flex-wrap gap-2">
+                  <span class="badge badge-primary">Flutter</span>
+                  <span class="badge badge-success">Firebase</span>
+                  <span class="badge badge-warning">Payment Integration</span>
+                  <span class="badge badge-error">Google Maps</span>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-semibold text-lg mb-2">Features:</h4>
+                <ul class="list-disc list-inside space-y-1 text-sm">
+                  <li>Real-time inventory management</li>
+                  <li>GPS-based delivery tracking</li>
+                  <li>Multiple payment gateway integration</li>
+                  <li>Push notifications for order updates</li>
+                  <li>Advanced search and filtering</li>
+                </ul>
+              </div>
+              <div class="flex gap-3 pt-4">
+                <a href="#" class="btn btn-primary flex-1">Live Demo</a>
+                <a href="#" class="btn btn-secondary flex-1">Source Code</a>
+              </div>
+            </div>
+          `, { title: 'Grocery Delivery App Details' });
+
+          modalManager.create('project-3', `
+            <div class="text-center mb-6">
+              <img src="src/assets/images/projects/10-educational-apps-for-kids.jpg" alt="KidApp" class="w-full max-w-md mx-auto rounded-lg shadow-lg">
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="font-semibold text-lg mb-2">Technologies Used:</h4>
+                <div class="flex flex-wrap gap-2">
+                  <span class="badge badge-primary">Flutter</span>
+                  <span class="badge badge-success">Figma</span>
+                  <span class="badge badge-warning">Rive Animations</span>
+                  <span class="badge badge-error">Audio Integration</span>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-semibold text-lg mb-2">Features:</h4>
+                <ul class="list-disc list-inside space-y-1 text-sm">
+                  <li>Interactive learning games and activities</li>
+                  <li>Colorful animations and transitions</li>
+                  <li>Progress tracking for parents</li>
+                  <li>Offline content access</li>
+                  <li>Child-safe design and navigation</li>
+                </ul>
+              </div>
+              <div class="flex gap-3 pt-4">
+                <a href="#" class="btn btn-primary flex-1">Live Demo</a>
+                <a href="#" class="btn btn-secondary flex-1">Source Code</a>
+              </div>
+            </div>
+          `, { title: 'Educational Kids App Details' });
+
+          // Create portfolio website modal
+          modalManager.create('project-4', `
+            <div class="text-center mb-6">
+              <img src="src/assets/images/projects/photo_2025-05-26_21-26-51.jpg" alt="Portfolio Website" class="w-full max-w-md mx-auto rounded-lg shadow-lg">
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="font-semibold text-lg mb-2">Technologies Used:</h4>
+                <div class="flex flex-wrap gap-2">
+                  <span class="badge badge-primary">HTML5</span>
+                  <span class="badge badge-success">CSS3</span>
+                  <span class="badge badge-warning">JavaScript</span>
+                  <span class="badge badge-error">GSAP</span>
+                  <span class="badge badge-info">Tailwind CSS</span>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-semibold text-lg mb-2">Features:</h4>
+                <ul class="list-disc list-inside space-y-1 text-sm">
+                  <li>Advanced theme system with light/dark modes</li>
+                  <li>Interactive components with smooth animations</li>
+                  <li>Responsive design optimized for all devices</li>
+                  <li>Modern UI components and toast notifications</li>
+                  <li>Professional portfolio showcase</li>
+                </ul>
+              </div>
+              <div class="flex gap-3 pt-4">
+                <a href="#" class="btn btn-primary flex-1">Live Demo</a>
+                <a href="#" class="btn btn-secondary flex-1">Source Code</a>
+              </div>
+            </div>
+          `, { title: 'Portfolio Website Details' });
+
+          // Create UI design concepts modal
+          modalManager.create('project-5', `
+            <div class="text-center mb-6">
+              <img src="src/assets/images/projects/image.png.jpg" alt="UI Design Concepts" class="w-full max-w-md mx-auto rounded-lg shadow-lg">
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="font-semibold text-lg mb-2">Tools Used:</h4>
+                <div class="flex flex-wrap gap-2">
+                  <span class="badge badge-primary">Figma</span>
+                  <span class="badge badge-success">Adobe XD</span>
+                  <span class="badge badge-warning">Photoshop</span>
+                  <span class="badge badge-error">Illustrator</span>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-semibold text-lg mb-2">Design Features:</h4>
+                <ul class="list-disc list-inside space-y-1 text-sm">
+                  <li>Modern and minimalist interface designs</li>
+                  <li>Mobile-first responsive layouts</li>
+                  <li>User-centered design principles</li>
+                  <li>Interactive prototypes and animations</li>
+                  <li>Comprehensive design systems</li>
+                </ul>
+              </div>
+              <div class="flex gap-3 pt-4">
+                <a href="#" class="btn btn-primary flex-1">View Designs</a>
+                <a href="#" class="btn btn-secondary flex-1">Figma File</a>
+              </div>
+            </div>
+          `, { title: 'UI Design Concepts' });
+
+          // Create expense tracker modal
+          modalManager.create('project-6', `
+            <div class="text-center mb-6">
+              <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?w=400&h=200&fit=crop" alt="Expense Tracker" class="w-full max-w-md mx-auto rounded-lg shadow-lg">
+            </div>
+            <div class="space-y-4">
+              <div>
+                <h4 class="font-semibold text-lg mb-2">Technologies Used:</h4>
+                <div class="flex flex-wrap gap-2">
+                  <span class="badge badge-primary">Flutter</span>
+                  <span class="badge badge-success">SQLite</span>
+                  <span class="badge badge-warning">Chart.js</span>
+                  <span class="badge badge-error">Provider</span>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-semibold text-lg mb-2">Features:</h4>
+                <ul class="list-disc list-inside space-y-1 text-sm">
+                  <li>Track daily income and expenses</li>
+                  <li>Beautiful charts and analytics</li>
+                  <li>Category-based expense organization</li>
+                  <li>Monthly and yearly reports</li>
+                  <li>Budget planning and alerts</li>
+                </ul>
+              </div>
+              <div class="flex gap-3 pt-4">
+                <a href="#" class="btn btn-primary flex-1">Try Demo</a>
+                <a href="#" class="btn btn-secondary flex-1">GitHub</a>
+              </div>
+            </div>
+          `, { title: 'Personal Expense Tracker' });
+
+          // Create resume modal
+          modalManager.create('resume', `
+            <div class="text-center space-y-6">
+              <div>
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="mx-auto text-accent-color">
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                  <polyline points="14,2 14,8 20,8"></polyline>
+                  <line x1="16" y1="13" x2="8" y2="13"></line>
+                  <line x1="16" y1="17" x2="8" y2="17"></line>
+                  <polyline points="10,9 9,9 8,9"></polyline>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold mb-2">Download My Resume</h3>
+                <p class="text-secondary mb-6">Get a comprehensive overview of my skills, experience, and projects.</p>
+                <div class="space-y-3">
+                  <button class="btn btn-primary w-full" onclick="downloadResume('pdf')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="7,10 12,15 17,10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download PDF Version
+                  </button>
+                  <button class="btn btn-secondary w-full" onclick="downloadResume('doc')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                      <polyline points="7,10 12,15 17,10"></polyline>
+                      <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download DOC Version
+                  </button>
+                </div>
+              </div>
+            </div>
+          `, { title: 'Resume Download' });
+        }
+      }, 2500);
+    });
+
+    // Resume download function
+    function downloadResume(format) {
+      toastManager?.show(`Resume download started (${format.toUpperCase()})!`, 'success', {
+        title: 'Download Started',
+        duration: 3000
+      });
+      modalManager?.close('resume');
+      // Here you would implement actual download logic
+    }
+  </script>
 </body>
 </html>
