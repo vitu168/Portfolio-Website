@@ -2,13 +2,14 @@
 class ThemeManager {
   constructor() {
     this.currentTheme = this.getStoredTheme() || 'auto';
-    console.log(`ThemeManager initialized. Stored theme: ${this.getStoredTheme()}, Current theme: ${this.currentTheme}`);
+    // Apply attribute ASAP (constructor may run before other scripts) to reduce flash
+    document.documentElement.setAttribute('data-theme', this.currentTheme);
     this.init();
   }
 
   init() {
-    // Apply theme immediately
-    this.applyTheme(this.currentTheme);
+  // Apply theme immediately (will also update buttons)
+  this.applyTheme(this.currentTheme, { skipStore: true, silent: true });
     this.setupThemeToggle();
     this.setupSystemThemeListener();
     
@@ -36,15 +37,22 @@ class ThemeManager {
     localStorage.setItem('portfolio-theme', theme);
   }
 
-  applyTheme(theme) {
-    console.log(`Applying theme: ${theme}`);
+  applyTheme(theme, opts = {}) {
+    if (!theme) return;
+    const { skipStore = false, silent = false } = opts;
+    if (this.currentTheme === theme && !opts.force) {
+      // Still ensure buttons reflect current state
+      this.updateThemeButtons();
+      return;
+    }
     document.documentElement.setAttribute('data-theme', theme);
     this.currentTheme = theme;
-    this.storeTheme(theme);
+    if (!skipStore) this.storeTheme(theme);
     this.updateThemeButtons();
+    this.updateThemeTrackIndicator();
     this.animateThemeChange();
     this.updateNavbarTheme();
-    console.log(`Theme applied and stored: ${theme}`);
+    if (!silent) console.log(`[Theme] applied: ${theme}`);
   }
 
   forceUpdateThemeButtons() {
@@ -56,23 +64,7 @@ class ThemeManager {
       return;
     }
     
-    // Clear all active states first
-    themeButtons.forEach(btn => {
-      btn.classList.remove('active');
-      // Force style reset to ensure clean state
-      btn.style.removeProperty('background');
-      btn.style.removeProperty('border');
-      btn.style.removeProperty('box-shadow');
-    });
-    
-    // Set the correct active button
-    const targetButton = document.querySelector(`[data-theme="${this.currentTheme}"]`);
-    if (targetButton) {
-      targetButton.classList.add('active');
-      console.log(`Theme button updated: ${this.currentTheme} is now active`);
-    } else {
-      console.warn(`Could not find theme button for: ${this.currentTheme}`);
-    }
+  this.updateThemeButtons();
   }
 
   animateThemeChange() {
@@ -128,30 +120,17 @@ class ThemeManager {
   }
 
   updateThemeButtons() {
-    // Enhanced button state management
     const themeButtons = document.querySelectorAll('.theme-btn');
-    
-    if (themeButtons.length === 0) {
-      console.warn('No theme buttons found for updating');
-      return;
-    }
-    
-    themeButtons.forEach(button => {
-      const theme = button.getAttribute('data-theme');
-      const isActive = theme === this.currentTheme;
-      
-      // Update active class
-      button.classList.toggle('active', isActive);
-      
-      // Force style reset for inactive buttons
-      if (!isActive) {
-        button.style.removeProperty('background');
-        button.style.removeProperty('border');
-        button.style.removeProperty('box-shadow');
-      }
+    if (!themeButtons.length) return;
+    themeButtons.forEach(btn => {
+      const t = btn.getAttribute('data-theme');
+      btn.classList.toggle('active', t === this.currentTheme);
     });
-    
-    console.log(`Theme buttons updated. Current theme: ${this.currentTheme}`);
+  }
+
+  updateThemeTrackIndicator() {
+    const track = document.querySelector('.theme-toggle-track');
+    if (track) track.setAttribute('data-active', this.currentTheme);
   }
 
   setupSystemThemeListener() {
