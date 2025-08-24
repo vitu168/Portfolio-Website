@@ -98,6 +98,17 @@
   transform: translateY(0);
 }
 
+/* When repositioned above (mobile panel JS sets bottom) */
+#mobile-menu-panel .language-dropdown-menu[style*="bottom"] {
+  top: auto !important;
+  animation: dropdownFadeUp 0.18s ease;
+}
+
+@keyframes dropdownFadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .language-option {
   display: flex;
   align-items: center;

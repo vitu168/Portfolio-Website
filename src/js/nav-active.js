@@ -1,6 +1,124 @@
 // Persistent navigation active state (independent, safe, last-loaded)
 (function(){
   document.addEventListener('DOMContentLoaded', () => {
+    // ----- MOBILE MENU SETUP -----
+    const toggleBtn = document.getElementById('mobile-nav-toggle');
+    const panel = document.getElementById('mobile-menu-panel');
+    const desktopLinksContainer = document.querySelector('.nav-links');
+    const mobileLinksContainer = document.getElementById('mobile-menu-links');
+  const mobileThemeButtonsContainer = document.getElementById('mobile-theme-buttons');
+  const desktopLanguageSwitcher = document.querySelector('.language-switcher, .language-dropdown');
+  let languageOriginalParent = null;
+
+    if (toggleBtn && panel && desktopLinksContainer && mobileLinksContainer) {
+      // Clone nav links (anchor elements) for mobile menu
+      mobileLinksContainer.innerHTML = '';
+      desktopLinksContainer.querySelectorAll('a.nav-link').forEach(a => {
+        const clone = a.cloneNode(true);
+        clone.addEventListener('click', () => {
+          // Close after selection
+          closeMobileMenu();
+        });
+        mobileLinksContainer.appendChild(clone);
+      });
+
+  // Clone theme buttons if available
+      const desktopThemeBtns = document.querySelectorAll('.theme-btn');
+      if (mobileThemeButtonsContainer && desktopThemeBtns.length) {
+        mobileThemeButtonsContainer.innerHTML = '';
+        desktopThemeBtns.forEach(btn => {
+          const clone = btn.cloneNode(true);
+          clone.addEventListener('click', () => {
+            if (window.themeManager) {
+              window.themeManager.applyTheme(clone.getAttribute('data-theme'));
+            }
+            // Sync active state afterwards
+            setTimeout(() => {
+              syncMobileThemeButtons();
+            }, 10);
+          });
+          mobileThemeButtonsContainer.appendChild(clone);
+        });
+      }
+
+      function syncMobileThemeButtons(){
+        const current = window.themeManager?.currentTheme;
+        if (!current) return;
+        mobileThemeButtonsContainer?.querySelectorAll('.theme-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.getAttribute('data-theme') === current);
+        });
+      }
+
+      function mountLanguageIntoMobile(){
+        if (!desktopLanguageSwitcher) return;
+        // Inline placement inside theme switcher row
+        const themeRow = panel.querySelector('.mobile-theme-switcher');
+        if (!themeRow) return;
+        if (!themeRow.querySelector('.mobile-language-inline')) {
+          languageOriginalParent = languageOriginalParent || desktopLanguageSwitcher.parentElement;
+          const inline = document.createElement('div');
+          inline.className = 'mobile-language-inline';
+          inline.appendChild(desktopLanguageSwitcher);
+          themeRow.appendChild(inline);
+        }
+      }
+      function restoreLanguageToDesktop(){
+        if (!desktopLanguageSwitcher || !languageOriginalParent) return;
+        // Use tablet breakpoint (>=768px) to return switcher to desktop bar
+        if (window.innerWidth >= 768 && languageOriginalParent && !languageOriginalParent.contains(desktopLanguageSwitcher)) {
+          languageOriginalParent.appendChild(desktopLanguageSwitcher);
+          const inline = panel.querySelector('.mobile-language-inline');
+          if (inline) inline.remove();
+          // Rebind dropdown events for desktop context so styles reset
+          if (window.languageManager && typeof window.languageManager.setupDropdownEvents === 'function') {
+            setTimeout(() => { try { window.languageManager.setupDropdownEvents(); } catch(_){} }, 0);
+          }
+        }
+      }
+
+      function openMobileMenu(){
+  panel.classList.add('open');
+        toggleBtn.setAttribute('aria-expanded', 'true');
+        toggleBtn.querySelector('.icon-menu')?.classList.add('hidden');
+        toggleBtn.querySelector('.icon-close')?.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
+        syncMobileThemeButtons();
+  mountLanguageIntoMobile();
+        // Rebind dropdown events (lighter than full re-init)
+        if (window.languageManager && typeof window.languageManager.setupDropdownEvents === 'function') {
+          setTimeout(() => {
+            try { window.languageManager.setupDropdownEvents(); } catch(e) { /* ignore */ }
+          }, 50);
+        }
+      }
+      function closeMobileMenu(){
+        panel.classList.remove('open');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        toggleBtn.querySelector('.icon-menu')?.classList.remove('hidden');
+        toggleBtn.querySelector('.icon-close')?.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }
+      function toggleMobileMenu(){
+        panel.classList.contains('open') ? closeMobileMenu() : openMobileMenu();
+      }
+      toggleBtn.addEventListener('click', toggleMobileMenu);
+      window.addEventListener('resize', () => { 
+        if (window.innerWidth >= 768) {
+          // Close mobile panel if transitioning to tablet/desktop
+            closeMobileMenu();
+            restoreLanguageToDesktop();
+        }
+      });
+      // On load (desktop) ensure language switcher in original spot
+  if (window.innerWidth >= 768) restoreLanguageToDesktop();
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
+      // Close when clicking outside
+      document.addEventListener('click', e => {
+        if (!panel.contains(e.target) && !toggleBtn.contains(e.target) && panel.classList.contains('open')) {
+          closeMobileMenu();
+        }
+      });
+    }
     const navLinks = Array.from(document.querySelectorAll('.nav-link'));
     if (!navLinks.length) return;
 

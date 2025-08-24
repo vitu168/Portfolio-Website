@@ -404,12 +404,22 @@ class LanguageManager {
   }
   
   init() {
+    if (this._initialized) {
+      // Rebind only (e.g., after DOM moves)
+      this.setupDropdownEvents();
+      return;
+    }
     this.createLanguageSwitcher();
     this.applyLanguage(this.currentLanguage);
     this.setupLanguageListeners();
+    this._initialized = true;
   }
   
   createLanguageSwitcher() {
+    // If one already exists anywhere, just reuse it
+    if (document.querySelector('.language-switcher')) {
+      return; // assume already in DOM (maybe moved to mobile)
+    }
     // Find the theme switcher container to add language switcher next to it
     const themeContainer = document.querySelector('.nav-right');
     if (!themeContainer) return;
@@ -460,57 +470,75 @@ class LanguageManager {
   }
   
   setupDropdownEvents() {
-    console.log('Setting up dropdown events...');
+    // Remove any previous listeners by cloning (safe idempotent rebind)
+    const oldTrigger = document.getElementById('language-trigger');
+    const oldMenu = document.getElementById('language-dropdown-menu');
+    if (!oldTrigger || !oldMenu) return;
+
+    // If we previously attached a sentinel property, replace nodes to drop old listeners
+    if (oldTrigger._langBound) {
+      const newTrigger = oldTrigger.cloneNode(true);
+      oldTrigger.parentNode.replaceChild(newTrigger, oldTrigger);
+    }
+    if (oldMenu._langBound) {
+      const newMenu = oldMenu.cloneNode(true);
+      oldMenu.parentNode.replaceChild(newMenu, oldMenu);
+    }
+
     const trigger = document.getElementById('language-trigger');
     const menu = document.getElementById('language-dropdown-menu');
-    const options = document.querySelectorAll('.language-option');
-    
-    console.log('Trigger:', trigger);
-    console.log('Menu:', menu);
-    console.log('Options:', options.length);
-    
-    if (!trigger || !menu) {
-      console.error('Language dropdown elements not found');
-      return;
+    if (!trigger || !menu) return;
+
+    const options = menu.querySelectorAll('.language-option');
+
+    // Determine if we're in mobile menu panel and adjust positioning (show above)
+    const inMobilePanel = !!trigger.closest('#mobile-menu-panel');
+    if (inMobilePanel) {
+      // Position above: set bottom offset instead of top
+      menu.style.top = 'auto';
+      menu.style.bottom = 'calc(100% + 0.375rem)';
+      menu.style.transformOrigin = 'bottom center';
+    } else {
+      // Reset to default in desktop context (CSS controls it)
+      menu.style.bottom = '';
+      menu.style.top = '';
+      menu.style.transformOrigin = '';
     }
-    
-    // Toggle dropdown
+
     trigger.addEventListener('click', (e) => {
-      console.log('Trigger clicked');
       e.stopPropagation();
       const isOpen = menu.classList.contains('show');
-      
       if (isOpen) {
         this.closeDropdown();
       } else {
         this.openDropdown();
       }
     });
-    
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (e) => {
+
+    const outsideHandler = (e) => {
       if (!trigger.contains(e.target) && !menu.contains(e.target)) {
         this.closeDropdown();
+        document.removeEventListener('click', outsideHandler, true);
       }
-    });
-    
-    // Handle language selection
-    options.forEach((option, index) => {
-      console.log(`Setting up option ${index}:`, option.dataset.lang);
+    };
+    // Use capture to ensure it fires even inside mobile overlay
+    document.addEventListener('click', outsideHandler, true);
+
+    options.forEach(option => {
       option.addEventListener('click', (e) => {
-        console.log('Language option clicked:', option.dataset.lang);
         e.stopPropagation();
         const lang = option.dataset.lang;
         if (lang && lang !== this.currentLanguage) {
-          console.log('Changing language to:', lang);
           this.changeLanguage(lang);
           this.updateDropdownDisplay(lang);
-          this.closeDropdown();
         }
+        this.closeDropdown();
       });
     });
-    
-    console.log('Dropdown events setup complete');
+
+    // Mark bound so we can safely replace later
+    trigger._langBound = true;
+    menu._langBound = true;
   }
   
   openDropdown() {
@@ -518,6 +546,12 @@ class LanguageManager {
     const menu = document.getElementById('language-dropdown-menu');
     
     if (trigger && menu) {
+      // If in mobile, ensure the menu renders above without being cut off
+      if (trigger.closest('#mobile-menu-panel')) {
+        // Make sure panel has overflow visible for dropdown
+        const panel = trigger.closest('#mobile-menu-panel');
+        if (panel) panel.style.overflow = 'visible';
+      }
       trigger.classList.add('active');
       menu.classList.add('show');
     }
@@ -620,12 +654,20 @@ class LanguageManager {
   }
   
   updateNavigation(nav) {
-    const navLinks = document.querySelectorAll('.nav-link span');
-    const navItems = ['home', 'skills', 'projects', 'knowledges'];
-    
-    navLinks.forEach((link, index) => {
-      if (navItems[index] && nav[navItems[index]]) {
-        link.textContent = nav[navItems[index]];
+    const map = {
+      home: nav.home,
+      skills: nav.skills,
+      projects: nav.projects,
+      knowledges: nav.knowledges
+    };
+    document.querySelectorAll('a.nav-link').forEach(a => {
+      const href = a.getAttribute('href') || '';
+      if (!href.startsWith('#')) return;
+      const id = href.slice(1);
+      const text = map[id];
+      if (text) {
+        const span = a.querySelector('span');
+        if (span) span.textContent = text;
       }
     });
   }

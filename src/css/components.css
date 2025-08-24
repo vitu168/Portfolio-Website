@@ -85,6 +85,58 @@
     color: var(--primary-600);
 }
 
+/* MOBILE NAVIGATION */
+.mobile-nav-toggle {
+    background: transparent;
+    padding: 0.5rem;
+    color: var(--text-primary);
+    transition: color var(--transition-fast), transform var(--transition-fast);
+}
+.mobile-nav-toggle:hover { color: var(--accent-color); }
+.mobile-nav-toggle:active { transform: scale(.9); }
+.mobile-menu-panel {
+    position: absolute;
+    top: 100%;
+    inset-inline: 0;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 8px 24px var(--shadow-color);
+    max-height: 0;
+    overflow: visible; /* allow dropdowns to extend */
+    opacity: 0;
+    transition: max-height .35s ease, opacity .25s ease;
+    backdrop-filter: blur(8px);
+    z-index: 40;
+}
+.mobile-menu-panel.open { max-height: 640px; opacity: 1; }
+.mobile-menu-inner { max-height: calc(100vh - 4rem); overflow-y: auto; }
+.mobile-menu-inner { padding: 0.75rem 1.25rem 1.25rem; }
+.mobile-menu-nav a.nav-link { display: inline-block; padding: .5rem 0; }
+.mobile-menu-nav .nav-link::after { bottom: 0; }
+.mobile-theme-switcher .theme-btn { width: 2.25rem; height: 2.25rem; }
+/* Inline language switcher next to theme buttons (mobile) */
+.mobile-theme-switcher { display: flex; align-items: center; justify-content: flex-start; flex-wrap: wrap; gap: .5rem; }
+.mobile-theme-switcher #mobile-theme-buttons { display: flex; gap: .4rem; }
+.mobile-language-inline { margin-left: auto; display: flex; align-items: center; }
+.mobile-language-inline .language-switcher { margin: 0; }
+@media (max-width: 480px) {
+    .mobile-language-inline .language-trigger { padding: .4rem .55rem; }
+}
+@media (max-width: 1023px) {
+    .nav-links { display: none; }
+    .mobile-menu-panel .nav-link span { font-size: 1rem; }
+}
+
+/* Hide brand title on narrow mobile screens */
+@media (max-width: 640px) {
+    /* Show brand on mobile with smaller size */
+    .site-brand { display: flex !important; }
+    .site-brand h1 { font-size: 1.25rem; }
+}
+
+/* Ensure language dropdown overlays correctly inside mobile menu */
+.mobile-menu-panel .language-dropdown-menu { z-index: 60; }
+
 .theme-toggle:hover {
     transform: rotate(360deg);
     color: var(--accent-color);

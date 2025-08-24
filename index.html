@@ -47,19 +47,38 @@
 </head>
 <body class="relative">
   <!-- Navbar -->
-  <nav class="navbar shadow-sm fixed w-full z-20" style="background-color: var(--bg-secondary);">
+  <nav class="navbar shadow-sm fixed w-full z-30" style="background-color: var(--bg-secondary);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex h-16 items-center">
-        <div class="flex items-center">
-          <h1 class="text-2xl font-bold" style="color: var(--accent-color);">Cambo-TU</h1>
+      <div class="flex h-16 items-center w-full">
+        <!-- Left: Brand -->
+        <div class="flex items-center flex-shrink-0 site-brand">
+          <h1 class="text-2xl font-bold select-none" style="color: var(--accent-color);">Cambo-TU</h1>
         </div>
-        <div class="flex items-center space-x-6 lg:ml-auto lg:mr-0" style="margin-left: calc(38% - 2rem);">
+
+        <!-- Mobile Toggle -->
+        <button id="mobile-nav-toggle" aria-label="Open menu" aria-expanded="false" class="mobile-nav-toggle ml-auto inline-flex items-center justify-center rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent lg:hidden">
+          <span class="sr-only">Toggle navigation</span>
+          <svg class="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+          <svg class="icon-close hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+
+        <!-- Center + Desktop Nav Links -->
+        <div class="nav-links flex items-center space-x-6 lg:ml-auto lg:mr-0 ml-12">
           <a href="#home" class="nav-link font-medium" style="color: var(--text-primary);"><span>Home</span></a>
           <a href="#skills" class="nav-link font-medium" style="color: var(--text-primary);"><span>Skills</span></a>
           <a href="#projects" class="nav-link font-medium" style="color: var(--text-primary);"><span>Projects</span></a>
           <a href="#knowledges" class="nav-link font-medium" style="color: var(--text-primary);"><span>Knowledges</span></a>
         </div>
-        <div class="flex items-center space-x-6 ml-auto">
+
+        <!-- Right Section (desktop) -->
+  <div class="flex items-center space-x-6 ml-auto hidden md:flex">
           
           <!-- Navigation Right Section -->
           
@@ -101,6 +120,20 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Panel (uses same nav-links container repositioned) -->
+    <div id="mobile-menu-panel" class="mobile-menu-panel lg:hidden" aria-hidden="true">
+      <div class="mobile-menu-inner">
+        <nav class="mobile-menu-nav">
+          <!-- We clone nav links dynamically for accessibility (avoids duplicate IDs) -->
+          <div id="mobile-menu-links" class="flex flex-col gap-2"></div>
+          <div class="mobile-theme-switcher mt-4">
+            <span class="text-xs tracking-wide font-semibold uppercase opacity-70 mb-2 block">Theme</span>
+            <div class="flex gap-2" id="mobile-theme-buttons"></div>
+          </div>
+        </nav>
       </div>
     </div>
   </nav>
