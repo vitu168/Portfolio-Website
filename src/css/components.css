@@ -71,8 +71,9 @@
     width: 100%;
 }
 
-.nav-link:hover span {
-    color: var(--accent-color);
+.nav-link:hover span,
+.nav-link.active span {
+    color: var(--accent-color) !important;
 }
 
 .theme-toggle {

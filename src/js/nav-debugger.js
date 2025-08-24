@@ -33,7 +33,7 @@ class NavigationDebugger {
     }
 
     logSections() {
-        const sections = ['home', 'skills', 'projects', 'contact'];
+        const sections = ['home', 'skills', 'projects', 'knowledges', 'contact'];
         console.group('📍 Section Positions');
         
         sections.forEach(sectionId => {
@@ -132,7 +132,7 @@ class NavigationDebugger {
     }
 
     updateCurrentSection() {
-        const sections = ['home', 'skills', 'projects', 'contact'];
+        const sections = ['home', 'skills', 'projects', 'knowledges', 'contact'];
         let currentSection = 'none';
         
         for (const sectionId of sections) {

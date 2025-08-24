@@ -110,7 +110,7 @@ navLinks.forEach(link => {
 
 // Update active link on scroll
 function updateActiveLink(targetId) {
-  const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+  const sections = ['home', 'skills', 'projects', 'knowledges', 'contact'];
   const currentSection = targetId || sections.find(section => {
     const element = document.getElementById(section);
     if (element) {

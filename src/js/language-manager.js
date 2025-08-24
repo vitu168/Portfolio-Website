@@ -9,6 +9,7 @@ class LanguageManager {
           home: 'Home',
           skills: 'Skills',
           projects: 'Projects',
+          knowledges: 'Knowledges',
           contact: 'Contact'
         },
         
@@ -206,6 +207,7 @@ class LanguageManager {
           home: 'ទំព័រដើម',
           skills: 'ជំនាញ',
           projects: 'គម្រោង',
+          knowledges: 'ចំណេះដឹង',
           contact: 'ទំនាក់ទំនង'
         },
         
@@ -619,7 +621,7 @@ class LanguageManager {
   
   updateNavigation(nav) {
     const navLinks = document.querySelectorAll('.nav-link span');
-    const navItems = ['home', 'skills', 'projects', 'contact'];
+    const navItems = ['home', 'skills', 'projects', 'knowledges', 'contact'];
     
     navLinks.forEach((link, index) => {
       if (navItems[index] && nav[navItems[index]]) {

@@ -5,7 +5,7 @@
 
 class SimpleNavigationManager {
     constructor() {
-        this.sections = ['home', 'skills', 'projects', 'contact'];
+        this.sections = ['home', 'skills', 'projects', 'knowledges', 'contact'];
         this.navLinks = {};
         this.currentSection = 'home';
         this.init();

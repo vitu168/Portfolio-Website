@@ -59,6 +59,12 @@
     font-weight: 600;
 }
 
+/* Hover effects */
+.nav-link:hover span {
+    color: var(--accent-color) !important;
+    transition: color 0.3s ease;
+}
+
 /* Focus styles for accessibility */
 .nav-link:focus {
     outline: 2px solid var(--accent-color);
