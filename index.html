@@ -49,15 +49,19 @@
   <!-- Navbar -->
   <nav class="navbar shadow-sm fixed w-full z-20" style="background-color: var(--bg-secondary);">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex justify-between h-16 items-center">
+      <div class="flex h-16 items-center">
         <div class="flex items-center">
           <h1 class="text-2xl font-bold" style="color: var(--accent-color);">Cambo-TU</h1>
         </div>
-        <div class="flex items-center space-x-6">
+        <div class="flex items-center space-x-6 lg:ml-auto lg:mr-0" style="margin-left: calc(38% - 2rem);">
           <a href="#home" class="nav-link font-medium" style="color: var(--text-primary);"><span>Home</span></a>
           <a href="#skills" class="nav-link font-medium" style="color: var(--text-primary);"><span>Skills</span></a>
           <a href="#projects" class="nav-link font-medium" style="color: var(--text-primary);"><span>Projects</span></a>
           <a href="#knowledges" class="nav-link font-medium" style="color: var(--text-primary);"><span>Knowledges</span></a>
+        </div>
+        <div class="flex items-center space-x-6 ml-auto">
+          
+          <!-- Navigation Right Section -->
           
           <!-- Navigation Right Section -->
           <div class="nav-right flex items-center gap-4">
@@ -564,7 +568,7 @@
               </button>
               <a href="#" class="btn btn-ghost btn-sm">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2 2V8a2 2 0 0 1 2-2h6"></path>
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                   <polyline points="15,3 21,3 21,9"></polyline>
                   <line x1="10" y1="14" x2="21" y2="3"></line>
                 </svg>
@@ -795,7 +799,7 @@
           <ul>
             <li class="contact-item">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-label="Email">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
               <a href="mailto:langvithu081@gmail.com" data-translate="footer.email">langvithu081@gmail.com</a>
             </li>
@@ -866,9 +870,9 @@
   <script src="src/js/filter-tests.js"></script>
   <script src="src/js/nav-flow-test.js"></script>
   <script src="src/js/enhanced-button.js"></script>
-  <script src="src/js/simple-navigation.js"></script>
   <script src="favicon/favicon-checker.js"></script>
   <script src="src/js/main.js"></script>
+  <script src="src/js/nav-active.js"></script>
 
   <!-- Initialize Project Modals -->
   <script>

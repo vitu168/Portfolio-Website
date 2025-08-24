@@ -92,16 +92,11 @@ navLinks.forEach(link => {
     const targetId = link.getAttribute('href').substring(1);
     const targetElement = document.getElementById(targetId);
     if (targetElement) {
+      // Use the same smooth scrolling as back-to-top button
+      const targetPosition = targetElement.offsetTop - 80;
       window.scrollTo({
-        top: targetElement.offsetTop - 80,
+        top: targetPosition,
         behavior: 'smooth'
-      });
-      gsap.to(link, {
-        scale: 1.1,
-        duration: 0.15,
-        yoyo: true,
-        repeat: 1,
-        ease: 'power2.out'
       });
       updateActiveLink(targetId);
     }
@@ -124,13 +119,6 @@ function updateActiveLink(targetId) {
     const href = link.getAttribute('href').substring(1);
     const isActive = currentSection === href;
     link.classList.toggle('active', isActive);
-    gsap.to(link, {
-      color: isActive
-        ? (document.body.classList.contains('dark') ? '#60a5fa' : '#3b82f6')
-        : (document.body.classList.contains('dark') ? '#e0f2fe' : '#1e3a8a'),
-      duration: 0.25,
-      ease: 'power2.inOut'
-    });
   });
 }
 

@@ -76,6 +76,10 @@
     color: var(--accent-color) !important;
 }
 
+/* ACTIVE NAV STYLES (added) */
+.nav-link.active span { color: var(--accent-color) !important; font-weight:600; }
+.nav-link.active::after { width:100%; }
+
 .theme-toggle {
     transition: transform var(--transition-normal);
     color: var(--primary-600);
