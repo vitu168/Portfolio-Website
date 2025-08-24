@@ -285,3 +285,66 @@ section {
 .dark .card-content {
     color: var(--text-secondary);
 }
+
+/* Social Media Icons - Clean & Simple */
+.social-media-container {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.social-icons-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.social-icon-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-icon-item:hover {
+    color: var(--accent-color);
+    border-color: var(--accent-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(var(--accent-color-rgb), 0.15);
+}
+
+.social-icon-item svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+.dark .social-icon-item {
+    background: var(--bg-secondary);
+    border-color: var(--border-color);
+}
+
+/* Responsive Design for Social Icons */
+@media (max-width: 480px) {
+    .social-icons-grid {
+        gap: 0.75rem;
+    }
+    
+    .social-icon-item {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .social-icon-item svg {
+        width: 18px;
+        height: 18px;
+    }
+}

@@ -621,7 +621,7 @@ class LanguageManager {
   
   updateNavigation(nav) {
     const navLinks = document.querySelectorAll('.nav-link span');
-    const navItems = ['home', 'skills', 'projects', 'knowledges', 'contact'];
+    const navItems = ['home', 'skills', 'projects', 'knowledges'];
     
     navLinks.forEach((link, index) => {
       if (navItems[index] && nav[navItems[index]]) {

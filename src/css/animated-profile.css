@@ -1272,10 +1272,21 @@
 .premium-contact-section {
   position: relative;
   min-height: 100vh;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 30%, #334155 100%);
+  background: var(--bg-primary);
   padding: 6rem 0;
   overflow: hidden;
-  color: white;
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode specific styling */
+.dark .premium-contact-section {
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 30%, var(--bg-tertiary) 100%);
+}
+
+/* Light mode specific styling */
+.premium-contact-section {
+  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 30%, var(--bg-tertiary) 100%);
 }
 
 /* Animated Background Elements */
@@ -1449,20 +1460,21 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(var(--card-bg-rgb), 0.2);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(var(--border-color-rgb), 0.3);
   border-radius: 50px;
   padding: 12px 24px;
   margin-bottom: 2rem;
   position: relative;
   overflow: hidden;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .badge-pulse {
   width: 10px;
   height: 10px;
-  background: #10b981;
+  background: var(--accent-color);
   border-radius: 50%;
   animation: pulse 2s infinite;
 }
@@ -1470,7 +1482,8 @@
 .hero-badge span {
   font-size: 0.95rem;
   font-weight: 600;
-  color: white;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
 }
 
 .hero-title {
@@ -1478,11 +1491,12 @@
   font-weight: 900;
   line-height: 1.1;
   margin-bottom: 1.5rem;
-  color: white;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+  background: linear-gradient(135deg, var(--accent-color), #764ba2, #f093fb);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1491,10 +1505,11 @@
 
 .hero-subtitle {
   font-size: 1.25rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-secondary);
   max-width: 600px;
   margin: 0 auto 3rem;
   line-height: 1.6;
+  transition: color 0.3s ease;
 }
 
 .hero-stats {
@@ -1502,11 +1517,12 @@
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(var(--card-bg-rgb), 0.1);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(var(--border-color-rgb), 0.2);
   border-radius: 20px;
   padding: 1.5rem 2rem;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -1551,9 +1567,9 @@
 
 /* Quick Actions Card - Centered Version */
 .quick-actions-card-centered {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(var(--card-bg-rgb), 0.2);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(var(--border-color-rgb), 0.3);
   border-radius: 24px;
   padding: 2.5rem;
   transition: all 0.3s ease;
@@ -1564,7 +1580,7 @@
 
 .quick-actions-card-centered:hover {
   transform: translateY(-5px);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 25px 50px rgba(var(--shadow-color-rgb), 0.3);
 }
 
 /* Remove Hero Stats */
@@ -1984,35 +2000,38 @@
 .profile-name {
   font-size: 1.25rem;
   font-weight: 700;
-  color: white;
+  color: var(--text-primary);
   margin: 0 0 6px 0;
   line-height: 1.2;
+  transition: color 0.3s ease;
 }
 
 .profile-title {
   font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--text-secondary);
   margin: 0 0 10px 0;
   line-height: 1.3;
+  transition: color 0.3s ease;
 }
 
 .online-status-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(16, 185, 129, 0.2);
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  background: rgba(var(--accent-color-rgb), 0.2);
+  border: 1px solid rgba(var(--accent-color-rgb), 0.3);
   border-radius: 20px;
   padding: 6px 12px;
   font-size: 0.8rem;
-  color: #10b981;
+  color: var(--accent-color);
   font-weight: 600;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 
 .online-indicator {
   width: 8px;
   height: 8px;
-  background: #10b981;
+  background: var(--accent-color);
   border-radius: 50%;
   animation: pulse 2s infinite;
 }

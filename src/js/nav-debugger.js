@@ -33,7 +33,7 @@ class NavigationDebugger {
     }
 
     logSections() {
-        const sections = ['home', 'skills', 'projects', 'knowledges', 'contact'];
+        const sections = ['home', 'skills', 'projects', 'knowledges'];
         console.group('📍 Section Positions');
         
         sections.forEach(sectionId => {

@@ -42,6 +42,9 @@
   --accent-color: var(--primary-500);
   --accent-hover: var(--primary-600);
   --accent-rgb: 59, 130, 246;
+  --card-bg-rgb: 255, 255, 255;
+  --border-color-rgb: 229, 231, 235;
+  --shadow-color-rgb: 0, 0, 0;
   --error-color: var(--error);
   --success-color: var(--success);
   --warning-color: var(--warning);
@@ -86,6 +89,9 @@
   --accent-color: var(--primary-400);
   --accent-hover: var(--primary-300);
   --accent-rgb: 96, 165, 250;
+  --card-bg-rgb: 31, 41, 55;
+  --border-color-rgb: 75, 85, 99;
+  --shadow-color-rgb: 0, 0, 0;
   
   /* Dark mode shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
