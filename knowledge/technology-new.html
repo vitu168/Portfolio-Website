@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Technology Hub | Cambo-TU</title>
+  <link rel="stylesheet" href="../src/css/theme.css" />
+  <link rel="stylesheet" href="../src/css/main.css" />
+  <link rel="stylesheet" href="../src/css/components.css" />
+  <link rel="stylesheet" href="../src/css/footer.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Beautiful Navigation */
+    .tech-nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;    }
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1.75rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .back-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .back-button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+    }
+    
+    .back-button:hover::before {
+      left: 100%;
+    }
+    
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    
+    /* Stunning Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 6rem 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255,255,255,0.05) 0%, transparent 50%);
+    }
+    
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .hero-title {
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 800;
+      color: white;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      animation: fadeInUp 1s ease-out 0.2s forwards;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.5rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      font-weight: 400;
+      opacity: 0;
+      animation: fadeInUp 1s ease-out 0.4s forwards;
+    }
+    
+    .hero-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      opacity: 0;
+      animation: fadeInUp 1s ease-out 0.6s forwards;
+    }
+    
+    .feature-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    
+    .feature-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+    
+    .feature-count {
+      font-size: 2rem;
+      font-weight: 800;
+      color: white;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    
+    .feature-label {
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    /* Main Content Area */
+    .main-section {
+      padding: 6rem 0;
+      background: var(--bg-primary);
+    }
+    
+    .content-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 350px;
+      gap: 4rem;
+    }
+    
+    /* Beautiful Filter Section */
+    .filter-section {
+      margin-bottom: 4rem;
+    }
+    
+    .section-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 2px;
+    }
+    
+    .filter-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .filter-btn {
+      padding: 1rem 2rem;
+      border: 2px solid transparent;
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-decoration: none;
+      display: inline-block;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .filter-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      transition: left 0.3s ease;
+      z-index: -1;
+    }
+    
+    .filter-btn:hover {
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+    
+    .filter-btn:hover::before {
+      left: 0;
+    }
+    
+    .filter-btn.active {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+    
+    .filter-btn.active::before {
+      left: 0;
+    }
+    
+    /* Stunning Article Grid */
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+      gap: 2.5rem;
+    }
+    
+    .article-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 25px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .article-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .article-card:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+      border-color: #667eea;
+    }
+    
+    .article-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .article-image {
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .article-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.1) 100%);
+    }
+    
+    .article-emoji {
+      font-size: 4rem;
+      position: relative;
+      z-index: 2;
+      transition: transform 0.3s ease;
+    }
+    
+    .article-card:hover .article-emoji {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .article-content {
+      padding: 2.5rem;
+    }
+    
+    .article-tag {
+      display: inline-block;
+      padding: 0.5rem 1.25rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 25px;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .article-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.3;
+      color: var(--text-primary);
+      transition: color 0.3s ease;
+    }
+    
+    .article-card:hover .article-title {
+      color: #667eea;
+    }
+    
+    .article-description {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+      font-size: 0.95rem;
+    }
+    
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      color: #667eea;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+    
+    .read-more:hover {
+      gap: 1rem;
+      color: #764ba2;
+    }
+    
+    /* Beautiful Sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+    
+    .sidebar-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 25px;
+      padding: 2.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .sidebar-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 50%;
+      opacity: 0.1;
+      transform: translate(50%, -50%);
+    }
+    
+    .sidebar-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .sidebar-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      color: var(--text-primary);
+      position: relative;
+      z-index: 2;
+    }
+    
+    .quick-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+    
+    .quick-stat {
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, #f8f9ff, #e8edff);
+      border-radius: 20px;
+      border: 1px solid rgba(102, 126, 234, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .quick-stat:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.15);
+    }
+    
+    .quick-stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #667eea;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    
+    .quick-stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+    
+    .trending-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      background: var(--bg-primary);
+      border-radius: 15px;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid var(--border-color);
+    }
+    
+    .trending-item:hover {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      transform: translateX(10px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+    
+    .trending-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 0.875rem;
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    
+    .loading {
+      animation: pulse 1.5s infinite;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1200px) {
+      .content-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      
+      .articles-grid {
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 0 1rem;
+      }
+      
+      .hero-content {
+        padding: 0 1rem;
+      }
+      
+      .content-container {
+        padding: 0 1rem;
+      }
+      
+      .articles-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .hero-features {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+      
+      .quick-stats {
+        grid-template-columns: 1fr;
+      }
+      
+      .filter-grid {
+        gap: 0.75rem;
+      }
+      
+      .filter-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.8rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .back-button {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.8rem;
+      }
+      
+      .hero-features {
+        grid-template-columns: 1fr;
+      }
+      
+      .article-content {
+        padding: 2rem;
+      }
+      
+      .sidebar-card {
+        padding: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="tech-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="back-button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Portfolio
+      </a>
+      <div class="breadcrumb">
+        <span>Knowledge Hub</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+        <span style="font-weight: 600; color: var(--text-primary);">Technology</span>
+      </div>
+      <div></div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Technology Hub</h1>
+      <p class="hero-subtitle">Discover cutting-edge innovations, development insights, and future technologies shaping our digital world</p>
+      <div class="hero-features">
+        <div class="feature-card">
+          <span class="feature-icon">🚀</span>
+          <span class="feature-count">50+</span>
+          <span class="feature-label">Tech Articles</span>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">🔬</span>
+          <span class="feature-count">12</span>
+          <span class="feature-label">Categories</span>
+        </div>
+        <div class="feature-card">
+          <span class="feature-icon">⚡</span>
+          <span class="feature-count">Live</span>
+          <span class="feature-label">Updates</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="main-section">
+    <div class="content-container">
+      <!-- Main Content Area -->
+      <main class="main-content">
+        <!-- Filter Section -->
+        <div class="filter-section">
+          <h2 class="section-title">Explore by Technology</h2>
+          <div class="filter-grid" id="filterContainer">
+            <button class="filter-btn active" data-filter="all">All Technologies</button>
+            <button class="filter-btn" data-filter="ai">Artificial Intelligence</button>
+            <button class="filter-btn" data-filter="web">Web Development</button>
+            <button class="filter-btn" data-filter="mobile">Mobile Development</button>
+            <button class="filter-btn" data-filter="blockchain">Blockchain</button>
+            <button class="filter-btn" data-filter="cloud">Cloud Computing</button>
+            <button class="filter-btn" data-filter="iot">Internet of Things</button>
+          </div>
+        </div>
+
+        <!-- Articles Section -->
+        <div class="articles-section">
+          <h2 class="section-title">Latest Technology Insights</h2>
+          <div class="articles-grid" id="articlesContainer">
+            <!-- Articles will be dynamically loaded here -->
+          </div>
+        </div>
+      </main>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Quick Stats</h3>
+          <div class="quick-stats">
+            <div class="quick-stat">
+              <span class="quick-stat-number">1.2k</span>
+              <span class="quick-stat-label">Total Reads</span>
+            </div>
+            <div class="quick-stat">
+              <span class="quick-stat-number">48</span>
+              <span class="quick-stat-label">This Week</span>
+            </div>
+            <div class="quick-stat">
+              <span class="quick-stat-number">9.2</span>
+              <span class="quick-stat-label">Avg Rating</span>
+            </div>
+            <div class="quick-stat">
+              <span class="quick-stat-number">24</span>
+              <span class="quick-stat-label">Bookmarks</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Trending Topics</h3>
+          <div class="trending-list">
+            <a href="#" class="trending-item">
+              <div class="trending-number">1</div>
+              <div>
+                <h4 style="font-weight: 600; margin-bottom: 0.25rem;">AI & Machine Learning</h4>
+                <p style="font-size: 0.75rem; opacity: 0.7;">245k discussions</p>
+              </div>
+            </a>
+            <a href="#" class="trending-item">
+              <div class="trending-number">2</div>
+              <div>
+                <h4 style="font-weight: 600; margin-bottom: 0.25rem;">Web3 & Blockchain</h4>
+                <p style="font-size: 0.75rem; opacity: 0.7;">189k discussions</p>
+              </div>
+            </a>
+            <a href="#" class="trending-item">
+              <div class="trending-number">3</div>
+              <div>
+                <h4 style="font-weight: 600; margin-bottom: 0.25rem;">Cloud Native</h4>
+                <p style="font-size: 0.75rem; opacity: 0.7;">156k discussions</p>
+              </div>
+            </a>
+            <a href="#" class="trending-item">
+              <div class="trending-number">4</div>
+              <div>
+                <h4 style="font-weight: 600; margin-bottom: 0.25rem;">DevOps & CI/CD</h4>
+                <p style="font-size: 0.75rem; opacity: 0.7;">98k discussions</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Newsletter</h3>
+          <p style="margin-bottom: 1.5rem; color: var(--text-secondary); line-height: 1.6;">Get the latest tech insights delivered to your inbox weekly</p>
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <input type="email" placeholder="Enter your email" style="padding: 1rem; border: 2px solid var(--border-color); border-radius: 12px; background: var(--bg-primary); color: var(--text-primary); font-size: 0.875rem;">
+            <button style="padding: 1rem; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">Subscribe Now</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer-bg py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="footer-content grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Quick Links -->
+        <div class="footer-column">
+          <h3 data-translate="footer.quickLinks">Quick Links</h3>
+          <ul>
+            <li><a href="../index.html#home" class="footer-link" data-translate="nav.home">Home</a></li>
+            <li><a href="../index.html#skills" class="footer-link" data-translate="nav.skills">Skills</a></li>
+            <li><a href="../index.html#projects" class="footer-link" data-translate="nav.projects">Projects</a></li>
+            <li><a href="../index.html#knowledges" class="footer-link" data-translate="nav.knowledges">Knowledges</a></li>
+          </ul>
+        </div>
+        <!-- Contact Info -->
+        <div class="footer-column">
+          <h3 data-translate="footer.contactInfo">Contact Info</h3>
+          <ul>
+            <li class="contact-item">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <a href="mailto:langvithu081@gmail.com">langvithu081@gmail.com</a>
+            </li>
+            <li class="contact-item">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <a href="tel:+85581578115">081578115</a>
+            </li>
+          </ul>
+        </div>
+        <!-- Follow Me -->
+        <div class="footer-column">
+          <h3 data-translate="footer.followMe">Follow Me</h3>
+          <div class="social-links">
+            <a href="https://www.facebook.com/share/1AqLQxaVU7/?mibextid=wwXIfr" target="_blank" class="social-icon">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+            <a href="https://github.com/langvithu" target="_blank" class="social-icon">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 013.003-.404c1.018.005 2.045.138 3.003.404 2.291-1.553 3.297-1.23 3.297-1.23.653 1.653.242 2.873.119 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.803 5.624-5.475 5.921.43.372.823 1.102.823 2.222v3.293c0 .322.218.694.825.576C20.565 21.796 24 17.297 24 12c0-6.63-5.373-12-12-12z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-8 text-gray-400 text-xs">
+        &copy; 2025 Cambo-TU Technology Hub. Innovating the future.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Technology articles data
+    const technologyData = {
+      articles: [
+        {
+          id: 1,
+          title: "The Future of Artificial Intelligence in 2025",
+          description: "Exploring breakthrough AI technologies, from GPT models to autonomous systems, and their impact on industries worldwide.",
+          category: "ai",
+          emoji: "🤖",
+          publishDate: "Dec 20, 2024",
+          readTime: "8 min read",
+          featured: true
+        },
+        {
+          id: 2,
+          title: "Building Scalable Web Applications with Modern Frameworks",
+          description: "Deep dive into React, Vue, and Angular ecosystems, performance optimization, and best practices for enterprise applications.",
+          category: "web",
+          emoji: "🌐",
+          publishDate: "Dec 18, 2024",
+          readTime: "12 min read",
+          featured: false
+        },
+        {
+          id: 3,
+          title: "Mobile Development Trends: Flutter vs React Native in 2025",
+          description: "Comprehensive comparison of cross-platform mobile frameworks, performance benchmarks, and developer experience.",
+          category: "mobile",
+          emoji: "📱",
+          publishDate: "Dec 15, 2024",
+          readTime: "10 min read",
+          featured: true
+        },
+        {
+          id: 4,
+          title: "Blockchain Revolution: Beyond Cryptocurrency",
+          description: "Exploring real-world blockchain applications in supply chain, healthcare, and digital identity verification systems.",
+          category: "blockchain",
+          emoji: "⛓️",
+          publishDate: "Dec 12, 2024",
+          readTime: "15 min read",
+          featured: false
+        },
+        {
+          id: 5,
+          title: "Cloud-Native Architecture: Microservices and Serverless",
+          description: "Designing resilient, scalable applications using containerization, orchestration, and serverless computing patterns.",
+          category: "cloud",
+          emoji: "☁️",
+          publishDate: "Dec 10, 2024",
+          readTime: "14 min read",
+          featured: true
+        },
+        {
+          id: 6,
+          title: "IoT Ecosystem: Smart Cities and Connected Devices",
+          description: "The intersection of sensors, edge computing, and data analytics in creating intelligent urban infrastructure.",
+          category: "iot",
+          emoji: "🌟",
+          publishDate: "Dec 8, 2024",
+          readTime: "11 min read",
+          featured: false
+        }
+      ]
+    };
+
+    let currentFilter = "all";
+
+    // Initialize the page
+    function initializePage() {
+      renderFilterButtons();
+      renderArticles();
+      setupEventListeners();
+      addEntranceAnimations();
+    }
+
+    // Render filter buttons
+    function renderFilterButtons() {
+      const filterContainer = document.getElementById('filterContainer');
+      if (!filterContainer) return;
+
+      const filters = [
+        { id: "all", name: "All Technologies" },
+        { id: "ai", name: "Artificial Intelligence" },
+        { id: "web", name: "Web Development" },
+        { id: "mobile", name: "Mobile Development" },
+        { id: "blockchain", name: "Blockchain" },
+        { id: "cloud", name: "Cloud Computing" },
+        { id: "iot", name: "Internet of Things" }
+      ];
+
+      filterContainer.innerHTML = filters.map(filter => `
+        <button class="filter-btn ${filter.id === currentFilter ? 'active' : ''}" 
+                data-filter="${filter.id}">
+          ${filter.name}
+        </button>
+      `).join('');
+    }
+
+    // Render articles
+    function renderArticles() {
+      const articlesContainer = document.getElementById('articlesContainer');
+      if (!articlesContainer) return;
+
+      const articlesToShow = currentFilter === "all" 
+        ? technologyData.articles 
+        : technologyData.articles.filter(article => article.category === currentFilter);
+
+      if (articlesToShow.length === 0) {
+        articlesContainer.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 4rem; color: var(--text-secondary);">
+            <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">No articles found</h3>
+            <p>Try selecting a different technology category!</p>
+          </div>
+        `;
+        return;
+      }
+
+      articlesContainer.innerHTML = articlesToShow.map(article => `
+        <article class="article-card" data-category="${article.category}">
+          <div class="article-image">
+            <span class="article-emoji">${article.emoji}</span>
+          </div>
+          <div class="article-content">
+            <div class="article-tag">${article.category}</div>
+            <h3 class="article-title">${article.title}</h3>
+            <p class="article-description">${article.description}</p>
+            <div class="article-meta">
+              <span>📅 ${article.publishDate}</span>
+              <span>⏱️ ${article.readTime}</span>
+              ${article.featured ? '<span style="color: #667eea; font-weight: 600;">⭐ Featured</span>' : ''}
+            </div>
+            <a href="#" class="read-more">
+              Read Article
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+      `).join('');
+
+      // Add staggered animation to new articles
+      setTimeout(() => {
+        document.querySelectorAll('.article-card').forEach((card, index) => {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(30px)';
+          setTimeout(() => {
+            card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, index * 150);
+        });
+      }, 100);
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      const filterContainer = document.getElementById('filterContainer');
+      if (filterContainer) {
+        filterContainer.addEventListener('click', handleFilterClick);
+      }
+
+      // Newsletter subscription
+      const subscribeBtn = document.querySelector('button[style*="linear-gradient"]');
+      if (subscribeBtn) {
+        subscribeBtn.addEventListener('click', function() {
+          const email = this.previousElementSibling.value;
+          if (email && email.includes('@')) {
+            this.textContent = 'Subscribed! ✨';
+            this.style.background = 'linear-gradient(135deg, #10B981, #059669)';
+            setTimeout(() => {
+              this.textContent = 'Subscribe Now';
+              this.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+            }, 3000);
+          } else {
+            this.textContent = 'Please enter valid email';
+            this.style.background = 'linear-gradient(135deg, #EF4444, #DC2626)';
+            setTimeout(() => {
+              this.textContent = 'Subscribe Now';
+              this.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+            }, 2000);
+          }
+        });
+      }
+    }
+
+    // Handle filter clicks
+    function handleFilterClick(event) {
+      if (!event.target.classList.contains('filter-btn')) return;
+
+      const filter = event.target.dataset.filter;
+      if (filter === currentFilter) return;
+
+      // Update active state
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Show loading state
+      const articlesContainer = document.getElementById('articlesContainer');
+      articlesContainer.innerHTML = `
+        <div style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+          <div style="display: inline-block; width: 50px; height: 50px; border: 4px solid #f3f4f6; border-top: 4px solid #667eea; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+          <p style="margin-top: 1rem; color: var(--text-secondary);">Loading articles...</p>
+        </div>
+      `;
+
+      // Update filter and re-render after delay
+      setTimeout(() => {
+        currentFilter = filter;
+        renderArticles();
+
+        // Smooth scroll to articles
+        const articlesSection = document.querySelector('.articles-section');
+        if (articlesSection) {
+          articlesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 500);
+    }
+
+    // Add entrance animations
+    function addEntranceAnimations() {
+      // Animate sidebar cards
+      setTimeout(() => {
+        document.querySelectorAll('.sidebar-card').forEach((card, index) => {
+          card.style.opacity = '0';
+          card.style.transform = 'translateX(50px)';
+          setTimeout(() => {
+            card.style.transition = 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            card.style.opacity = '1';
+            card.style.transform = 'translateX(0)';
+          }, index * 200);
+        });
+      }, 800);
+
+      // Animate filter buttons
+      setTimeout(() => {
+        document.querySelectorAll('.filter-btn').forEach((btn, index) => {
+          btn.style.opacity = '0';
+          btn.style.transform = 'translateY(20px)';
+          setTimeout(() => {
+            btn.style.transition = 'all 0.5s ease';
+            btn.style.opacity = '1';
+            btn.style.transform = 'translateY(0)';
+          }, index * 100);
+        });
+      }, 1000);
+    }
+
+    // Add CSS for loading spinner
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      .article-card {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+      
+      .filter-btn {
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      }
+    `;
+    document.head.appendChild(style);
+
+    // Initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', initializePage);
+  </script>
+</body>
+</html>

@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Technology Hub | Cambo-TU</title>
+  <link rel="stylesheet" href="../src/css/theme.css" />
+  <link rel="stylesheet" href="../src/css/main.css" />
+  <link rel="stylesheet" href="../src/css/components.css" />
+  <link rel="stylesheet" href="../src/css/footer.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Enhanced Technology Navigation */
+    .tech-nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1.75rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .back-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .back-button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+    }
+    
+    .back-button:hover::before {
+      left: 100%;
+    }
+    
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    
+    /* Stunning Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 6rem 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255,255,255,0.05) 0%, transparent 50%);
+    }
+    
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .hero-title {
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 800;
+      color: white;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      animation: fadeInUp 1s ease-out 0.2s forwards;
+    }
+    
+    .hero-subtitle {
+      font-size: 1.5rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 700px;
+      margin: 0 auto 3rem;
+      font-weight: 400;
+      opacity: 0;
+      animation: fadeInUp 1s ease-out 0.4s forwards;
+    }
+    
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      opacity: 0;
+      animation: fadeInUp 1s ease-out 0.6s forwards;
+    }
+    
+    .stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .stat-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: white;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    /* Beautiful Content Section */
+    .content-section {
+      padding: 6rem 0;
+      background: var(--bg-primary);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 2px;
+    }
+    
+    .section-description {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    
+    /* Categories Grid */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    
+    .category-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2.5rem;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    
+    .category-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .category-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      border-color: #667eea;
+    }
+    
+    .category-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .category-icon {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    
+    .category-card:hover .category-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .category-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+      transition: color 0.3s ease;
+    }
+    
+    .category-card:hover .category-title {
+      color: #667eea;
+    }
+    
+    .category-description {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    
+    .category-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #667eea;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    
+    .category-link:hover {
+      gap: 0.75rem;
+      color: #764ba2;
+    }
+    
+    /* Articles Section */
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 2.5rem;
+    }
+    
+    .article-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+    }
+    
+    .article-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .article-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      border-color: #667eea;
+    }
+    
+    .article-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .article-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .article-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.1) 100%);
+    }
+    
+    .article-emoji {
+      font-size: 3rem;
+      position: relative;
+      z-index: 2;
+      transition: transform 0.3s ease;
+    }
+    
+    .article-card:hover .article-emoji {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .article-content {
+      padding: 2rem;
+    }
+    
+    .article-tag {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .article-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+      color: var(--text-primary);
+      transition: color 0.3s ease;
+    }
+    
+    .article-card:hover .article-title {
+      color: #667eea;
+    }
+    
+    .article-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+    
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #667eea;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 0.9rem;
+    }
+    
+    .read-more:hover {
+      gap: 0.75rem;
+      color: #764ba2;
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 0 1rem;
+      }
+      
+      .hero-content {
+        padding: 0 1rem;
+      }
+      
+      .container {
+        padding: 0 1rem;
+      }
+      
+      .categories-grid,
+      .articles-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .hero-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .back-button {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.8rem;
+      }
+      
+      .hero-stats {
+        grid-template-columns: 1fr;
+      }
+      
+      .category-card,
+      .article-card {
+        padding: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="tech-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="back-button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Portfolio
+      </a>
+      <div class="breadcrumb">
+        <span>Knowledge Hub</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+        <span style="font-weight: 600; color: var(--text-primary);">Technology</span>
+      </div>
+      <div></div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Technology Hub</h1>
+      <p class="hero-subtitle">Discover cutting-edge innovations, development insights, and future technologies shaping our digital world</p>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <span class="stat-icon">🚀</span>
+          <span class="stat-number">50+</span>
+          <span class="stat-label">Tech Articles</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">🔬</span>
+          <span class="stat-number">12</span>
+          <span class="stat-label">Categories</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">⚡</span>
+          <span class="stat-number">Live</span>
+          <span class="stat-label">Updates</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="content-section">
+    <div class="container">
+      <!-- Categories Section -->
+      <div class="section-header">
+        <h2 class="section-title">Technology Categories</h2>
+        <p class="section-description">Explore our comprehensive collection of technology topics, from artificial intelligence to web development</p>
+      </div>
+      
+      <div class="categories-grid">
+        <div class="category-card">
+          <span class="category-icon">🤖</span>
+          <h3 class="category-title">Artificial Intelligence</h3>
+          <p class="category-description">Explore the latest in AI, machine learning, and neural networks transforming industries worldwide.</p>
+          <a href="#" class="category-link">
+            Learn More
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+        
+        <div class="category-card">
+          <span class="category-icon">🌐</span>
+          <h3 class="category-title">Web Development</h3>
+          <p class="category-description">Modern frameworks, progressive web apps, and cutting-edge development techniques.</p>
+          <a href="#" class="category-link">
+            Learn More
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+        
+        <div class="category-card">
+          <span class="category-icon">📱</span>
+          <h3 class="category-title">Mobile Development</h3>
+          <p class="category-description">Cross-platform solutions, native apps, and the future of mobile technology.</p>
+          <a href="#" class="category-link">
+            Learn More
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+        
+        <div class="category-card">
+          <span class="category-icon">☁️</span>
+          <h3 class="category-title">Cloud Computing</h3>
+          <p class="category-description">Serverless architecture, microservices, and scalable cloud solutions.</p>
+          <a href="#" class="category-link">
+            Learn More
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+        
+        <div class="category-card">
+          <span class="category-icon">⛓️</span>
+          <h3 class="category-title">Blockchain</h3>
+          <p class="category-description">Cryptocurrency, smart contracts, and decentralized applications (DApps).</p>
+          <a href="#" class="category-link">
+            Learn More
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+        
+        <div class="category-card">
+          <span class="category-icon">🔒</span>
+          <h3 class="category-title">Cybersecurity</h3>
+          <p class="category-description">Data protection, ethical hacking, and advanced security protocols.</p>
+          <a href="#" class="category-link">
+            Learn More
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Featured Articles -->
+      <div class="section-header" style="margin-top: 4rem;">
+        <h2 class="section-title">Featured Articles</h2>
+        <p class="section-description">Stay updated with the latest technology trends and breakthrough innovations</p>
+      </div>
+      
+      <div class="articles-grid">
+        <article class="article-card">
+          <div class="article-image">
+            <span class="article-emoji">🤖</span>
+          </div>
+          <div class="article-content">
+            <div class="article-tag">AI</div>
+            <h3 class="article-title">The Future of Artificial Intelligence in 2025</h3>
+            <p class="article-description">Exploring breakthrough AI technologies, from GPT models to autonomous systems, and their impact on industries worldwide.</p>
+            <div class="article-meta">
+              <span>📅 Aug 20, 2025</span>
+              <span>⏱️ 8 min read</span>
+              <span style="color: #667eea; font-weight: 600;">⭐ Featured</span>
+            </div>
+            <a href="#" class="read-more">
+              Read Article
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="article-card">
+          <div class="article-image">
+            <span class="article-emoji">🌐</span>
+          </div>
+          <div class="article-content">
+            <div class="article-tag">Web Dev</div>
+            <h3 class="article-title">Building Scalable Web Applications</h3>
+            <p class="article-description">Modern frameworks, performance optimization, and best practices for enterprise-level applications.</p>
+            <div class="article-meta">
+              <span>📅 Aug 18, 2025</span>
+              <span>⏱️ 12 min read</span>
+            </div>
+            <a href="#" class="read-more">
+              Read Article
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="article-card">
+          <div class="article-image">
+            <span class="article-emoji">📱</span>
+          </div>
+          <div class="article-content">
+            <div class="article-tag">Mobile</div>
+            <h3 class="article-title">Flutter vs React Native in 2025</h3>
+            <p class="article-description">Comprehensive comparison of cross-platform frameworks and development strategies.</p>
+            <div class="article-meta">
+              <span>📅 Aug 15, 2025</span>
+              <span>⏱️ 10 min read</span>
+            </div>
+            <a href="#" class="read-more">
+              Read Article
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="article-card">
+          <div class="article-image">
+            <span class="article-emoji">☁️</span>
+          </div>
+          <div class="article-content">
+            <div class="article-tag">Cloud</div>
+            <h3 class="article-title">Microservices Architecture Guide</h3>
+            <p class="article-description">Design patterns, containerization, and orchestration for modern cloud applications.</p>
+            <div class="article-meta">
+              <span>📅 Aug 12, 2025</span>
+              <span>⏱️ 15 min read</span>
+            </div>
+            <a href="#" class="read-more">
+              Read Article
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="article-card">
+          <div class="article-image">
+            <span class="article-emoji">⛓️</span>
+          </div>
+          <div class="article-content">
+            <div class="article-tag">Blockchain</div>
+            <h3 class="article-title">Blockchain Beyond Cryptocurrency</h3>
+            <p class="article-description">Real-world applications in supply chain, healthcare, and digital identity systems.</p>
+            <div class="article-meta">
+              <span>📅 Aug 10, 2025</span>
+              <span>⏱️ 11 min read</span>
+            </div>
+            <a href="#" class="read-more">
+              Read Article
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+
+        <article class="article-card">
+          <div class="article-image">
+            <span class="article-emoji">🔒</span>
+          </div>
+          <div class="article-content">
+            <div class="article-tag">Security</div>
+            <h3 class="article-title">Advanced Cybersecurity Protocols</h3>
+            <p class="article-description">Zero-trust architecture, quantum encryption, and next-generation security frameworks.</p>
+            <div class="article-meta">
+              <span>📅 Aug 8, 2025</span>
+              <span>⏱️ 13 min read</span>
+            </div>
+            <a href="#" class="read-more">
+              Read Article
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer-bg py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="footer-content grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Quick Links -->
+        <div class="footer-column">
+          <h3 data-translate="footer.quickLinks">Quick Links</h3>
+          <ul>
+            <li><a href="../index.html#home" class="footer-link" data-translate="nav.home">Home</a></li>
+            <li><a href="../index.html#skills" class="footer-link" data-translate="nav.skills">Skills</a></li>
+            <li><a href="../index.html#projects" class="footer-link" data-translate="nav.projects">Projects</a></li>
+            <li><a href="../index.html#knowledges" class="footer-link" data-translate="nav.knowledges">Knowledges</a></li>
+          </ul>
+        </div>
+        <!-- Contact Info -->
+        <div class="footer-column">
+          <h3 data-translate="footer.contactInfo">Contact Info</h3>
+          <ul>
+            <li class="contact-item">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <a href="mailto:langvithu081@gmail.com">langvithu081@gmail.com</a>
+            </li>
+            <li class="contact-item">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <a href="tel:+85581578115">081578115</a>
+            </li>
+          </ul>
+        </div>
+        <!-- Follow Me -->
+        <div class="footer-column">
+          <h3 data-translate="footer.followMe">Follow Me</h3>
+          <div class="social-links">
+            <a href="https://www.facebook.com/share/1AqLQxaVU7/?mibextid=wwXIfr" target="_blank" class="social-icon">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+            <a href="https://github.com/langvithu" target="_blank" class="social-icon">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 013.003-.404c1.018.005 2.045.138 3.003.404 2.291-1.553 3.297-1.23 3.297-1.23.653 1.653.242 2.873.119 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.803 5.624-5.475 5.921.43.372.823 1.102.823 2.222v3.293c0 .322.218.694.825.576C20.565 21.796 24 17.297 24 12c0-6.63-5.373-12-12-12z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-8 text-gray-400 text-xs">
+        &copy; 2025 Cambo-TU Technology Hub. Innovating the future.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Enhanced scroll animations
+    document.addEventListener('DOMContentLoaded', function() {
+      // Animate elements on scroll
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      // Observe all cards
+      document.querySelectorAll('.category-card, .article-card').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        observer.observe(card);
+      });
+
+      // Add click effects to interactive elements
+      document.querySelectorAll('.category-card, .article-card').forEach(card => {
+        card.addEventListener('click', function(e) {
+          if (!e.target.closest('a')) {
+            const link = this.querySelector('.category-link, .read-more');
+            if (link) {
+              link.click();
+            }
+          }
+        });
+      });
+
+      // Parallax effect for hero section
+      window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const heroSection = document.querySelector('.hero-section');
+        if (heroSection) {
+          heroSection.style.transform = `translateY(${scrolled * 0.5}px)`;
+        }
+      });
+    });
+  </script>
+</body>
+</html>

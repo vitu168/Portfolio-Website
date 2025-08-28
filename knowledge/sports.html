@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sports Technology | Cambo-TU</title>
+  <link rel="stylesheet" href="../src/css/theme.css" />
+  <link rel="stylesheet" href="../src/css/main.css" />
+  <link rel="stylesheet" href="../src/css/components.css" />
+  <link rel="stylesheet" href="../src/css/footer.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    /* Enhanced Sports Navigation */
+    .sports-nav {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+    
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.875rem 1.75rem;
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 8px 30px rgba(255, 107, 107, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .back-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+    
+    .back-button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+    }
+    
+    .back-button:hover::before {
+      left: 100%;
+    }
+    
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    
+    /* Dynamic Sports Hero */
+    .hero-section {
+      background: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 50%, #FFD93D 100%);
+      padding: 6rem 0 4rem;
+      position: relative;
+      overflow: hidden;
+      min-height: 60vh;
+      display: flex;
+      align-items: center;
+    }
+    
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255,255,255,0.05) 0%, transparent 50%);
+    }
+    
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .hero-title {
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 900;
+      color: white;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+      opacity: 0;
+      animation: fadeInUp 1s ease-out 0.2s forwards;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .hero-subtitle {
+      font-size: 1.6rem;
+      color: rgba(255, 255, 255, 0.95);
+      max-width: 800px;
+      margin: 0 auto 3rem;
+      font-weight: 400;
+      opacity: 0;
+      animation: fadeInUp 1s ease-out 0.4s forwards;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .sports-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      opacity: 0;
+      animation: fadeInUp 1s ease-out 0.6s forwards;
+    }
+    
+    .sport-stat {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 25px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .sport-stat::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: rotate(45deg);
+      transition: all 0.6s ease;
+      opacity: 0;
+    }
+    
+    .sport-stat:hover {
+      transform: translateY(-15px) scale(1.05);
+      background: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+    }
+    
+    .sport-stat:hover::before {
+      opacity: 1;
+      transform: rotate(45deg) translate(50%, 50%);
+    }
+    
+    .sport-icon {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+    
+    .sport-stat:hover .sport-icon {
+      transform: scale(1.2) rotate(10deg);
+    }
+    
+    .sport-number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: white;
+      display: block;
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .sport-label {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.9);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+    
+    /* Interactive Sports Categories */
+    .categories-section {
+      padding: 6rem 0;
+      background: var(--bg-primary);
+    }
+    
+    .content-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    
+    .section-title {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+      position: relative;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 5px;
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      border-radius: 3px;
+    }
+    
+    .section-description {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    
+    .sports-categories {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2.5rem;
+      margin-bottom: 6rem;
+    }
+    
+    .category-card {
+      background: var(--bg-secondary);
+      border: 2px solid var(--border-color);
+      border-radius: 30px;
+      padding: 3rem;
+      text-align: center;
+      transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    
+    .category-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      transform: scaleX(0);
+      transition: transform 0.4s ease;
+      border-radius: 30px 30px 0 0;
+    }
+    
+    .category-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      border-radius: 50%;
+      opacity: 0.05;
+      transition: all 0.5s ease;
+    }
+    
+    .category-card:hover {
+      transform: translateY(-20px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+      border-color: #FF6B6B;
+    }
+    
+    .category-card:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .category-card:hover::after {
+      transform: scale(3);
+      opacity: 0.1;
+    }
+    
+    .category-icon {
+      font-size: 4rem;
+      margin-bottom: 2rem;
+      display: block;
+      transition: all 0.4s ease;
+    }
+    
+    .category-card:hover .category-icon {
+      transform: scale(1.2) rotate(15deg);
+    }
+    
+    .category-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+      transition: color 0.3s ease;
+    }
+    
+    .category-card:hover .category-title {
+      color: #FF6B6B;
+    }
+    
+    .category-description {
+      color: var(--text-secondary);
+      margin-bottom: 2.5rem;
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+    
+    .category-stats {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 2rem;
+    }
+    
+    .mini-stat {
+      text-align: center;
+    }
+    
+    .mini-stat-number {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #FF6B6B;
+      display: block;
+    }
+    
+    .mini-stat-label {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 0.25rem;
+    }
+    
+    .explore-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 1rem 2rem;
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .explore-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+    }
+    
+    /* Interactive Features Grid */
+    .features-section {
+      padding: 6rem 0;
+      background: linear-gradient(135deg, #f8f9ff, #fff0f3);
+    }
+    
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+    
+    .feature-item {
+      background: white;
+      border-radius: 25px;
+      padding: 3rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .feature-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .feature-item:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 25px 50px rgba(255, 107, 107, 0.2);
+    }
+    
+    .feature-item:hover::before {
+      opacity: 0.05;
+    }
+    
+    .feature-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 2rem;
+      font-size: 2rem;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    
+    .feature-item:hover .feature-icon {
+      transform: scale(1.1) rotate(10deg);
+      box-shadow: 0 10px 25px rgba(255, 107, 107, 0.3);
+    }
+    
+    .feature-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+    
+    .feature-description {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    
+    /* Responsive Design */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    .animate-pulse {
+      animation: pulse 2s infinite;
+    }
+    
+    @media (max-width: 1200px) {
+      .sports-categories {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .nav-container {
+        padding: 0 1rem;
+      }
+      
+      .hero-content {
+        padding: 0 1rem;
+      }
+      
+      .content-wrapper {
+        padding: 0 1rem;
+      }
+      
+      .sports-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+      }
+      
+      .sports-categories {
+        grid-template-columns: 1fr;
+      }
+      
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .category-card {
+        padding: 2rem;
+      }
+      
+      .feature-item {
+        padding: 2rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .back-button {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.8rem;
+      }
+      
+      .sports-stats {
+        grid-template-columns: 1fr;
+      }
+      
+      .sport-stat {
+        padding: 2rem 1.5rem;
+      }
+      
+      .section-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="sports-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="back-button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Portfolio
+      </a>
+      <div class="breadcrumb">
+        <span>Knowledge Hub</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+        <span style="font-weight: 600; color: var(--text-primary);">Sports Technology</span>
+      </div>
+      <div></div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">Sports Technology</h1>
+      <p class="hero-subtitle">Where innovation meets athleticism - exploring the cutting-edge technologies revolutionizing sports performance and fan experiences</p>
+      <div class="sports-stats">
+        <div class="sport-stat">
+          <span class="sport-icon">🏃‍♂️</span>
+          <span class="sport-number">25+</span>
+          <span class="sport-label">Sports Covered</span>
+        </div>
+        <div class="sport-stat">
+          <span class="sport-icon">⚡</span>
+          <span class="sport-number">200+</span>
+          <span class="sport-label">Tech Innovations</span>
+        </div>
+        <div class="sport-stat">
+          <span class="sport-icon">📊</span>
+          <span class="sport-number">Live</span>
+          <span class="sport-label">Analytics</span>
+        </div>
+        <div class="sport-stat">
+          <span class="sport-icon">🏆</span>
+          <span class="sport-number">50+</span>
+          <span class="sport-label">Case Studies</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sports Categories -->
+  <section class="categories-section">
+    <div class="content-wrapper">
+      <div class="section-header">
+        <h2 class="section-title">Sports Technology Categories</h2>
+        <p class="section-description">Discover how technology is transforming different aspects of sports, from performance tracking to fan engagement</p>
+      </div>
+      
+      <div class="sports-categories" id="sportsCategories">
+        <!-- Categories will be populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <div class="content-wrapper">
+      <div class="section-header">
+        <h2 class="section-title">Innovation Highlights</h2>
+        <p class="section-description">Revolutionary technologies changing the game across all sports</p>
+      </div>
+      
+      <div class="features-grid" id="featuresGrid">
+        <!-- Features will be populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer-bg py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="footer-content grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Quick Links -->
+        <div class="footer-column">
+          <h3 data-translate="footer.quickLinks">Quick Links</h3>
+          <ul>
+            <li><a href="../index.html#home" class="footer-link" data-translate="nav.home">Home</a></li>
+            <li><a href="../index.html#skills" class="footer-link" data-translate="nav.skills">Skills</a></li>
+            <li><a href="../index.html#projects" class="footer-link" data-translate="nav.projects">Projects</a></li>
+            <li><a href="../index.html#knowledges" class="footer-link" data-translate="nav.knowledges">Knowledges</a></li>
+          </ul>
+        </div>
+        <!-- Contact Info -->
+        <div class="footer-column">
+          <h3 data-translate="footer.contactInfo">Contact Info</h3>
+          <ul>
+            <li class="contact-item">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <a href="mailto:langvithu081@gmail.com">langvithu081@gmail.com</a>
+            </li>
+            <li class="contact-item">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <a href="tel:+85581578115">081578115</a>
+            </li>
+          </ul>
+        </div>
+        <!-- Follow Me -->
+        <div class="footer-column">
+          <h3 data-translate="footer.followMe">Follow Me</h3>
+          <div class="social-links">
+            <a href="https://www.facebook.com/share/1AqLQxaVU7/?mibextid=wwXIfr" target="_blank" class="social-icon">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </a>
+            <a href="https://github.com/langvithu" target="_blank" class="social-icon">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.085 1.84 1.237 1.84 1.237 1.07 1.834 2.809 1.304 3.495.997.108-.775.418-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.535-1.523.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 013.003-.404c1.018.005 2.045.138 3.003.404 2.291-1.553 3.297-1.23 3.297-1.23.653 1.653.242 2.873.119 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.803 5.624-5.475 5.921.43.372.823 1.102.823 2.222v3.293c0 .322.218.694.825.576C20.565 21.796 24 17.297 24 12c0-6.63-5.373-12-12-12z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="text-center mt-8 text-gray-400 text-xs">
+        &copy; 2025 Cambo-TU Sports Technology Hub. Powering athletic excellence.
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Sports categories data
+    const sportsData = {
+      categories: [
+        {
+          id: 'performance',
+          title: 'Performance Analytics',
+          icon: '📊',
+          description: 'Advanced metrics, biomechanics analysis, and AI-powered performance optimization for athletes.',
+          stats: { tech: '45+', sports: '15', accuracy: '99%' }
+        },
+        {
+          id: 'wearables',
+          title: 'Wearable Technology',
+          icon: '⌚',
+          description: 'Smart devices, fitness trackers, and IoT sensors revolutionizing athletic monitoring.',
+          stats: { devices: '200+', metrics: '50+', users: '1M+' }
+        },
+        {
+          id: 'vr-ar',
+          title: 'VR/AR Training',
+          icon: '🥽',
+          description: 'Immersive training environments and augmented reality coaching systems.',
+          stats: { apps: '30+', sports: '12', impact: '85%' }
+        },
+        {
+          id: 'broadcasting',
+          title: 'Sports Broadcasting',
+          icon: '📺',
+          description: '8K streaming, drone coverage, and interactive fan engagement platforms.',
+          stats: { tech: '25+', viewers: '500M', quality: '8K' }
+        },
+        {
+          id: 'equipment',
+          title: 'Smart Equipment',
+          icon: '🎾',
+          description: 'Connected sports gear with embedded sensors and real-time feedback systems.',
+          stats: { products: '100+', brands: '20+', precision: '99.9%' }
+        },
+        {
+          id: 'recovery',
+          title: 'Recovery Tech',
+          icon: '💆‍♂️',
+          description: 'Advanced recovery methods using cryotherapy, compression, and biometric monitoring.',
+          stats: { methods: '15+', athletes: '5K+', recovery: '40%' }
+        }
+      ],
+      
+      features: [
+        {
+          icon: '🤖',
+          title: 'AI-Powered Analytics',
+          description: 'Machine learning algorithms analyze performance patterns and predict optimal training strategies for peak athletic performance.'
+        },
+        {
+          icon: '📱',
+          title: 'Mobile Integration',
+          description: 'Seamless smartphone connectivity allowing real-time monitoring, coaching, and performance tracking on-the-go.'
+        },
+        {
+          icon: '🌐',
+          title: 'Cloud Synchronization',
+          description: 'Universal data access across devices with secure cloud storage, enabling coaches and athletes to collaborate effectively.'
+        },
+        {
+          icon: '⚡',
+          title: 'Real-Time Processing',
+          description: 'Instant data processing and feedback systems providing immediate insights during training and competition.'
+        },
+        {
+          icon: '🎯',
+          title: 'Precision Tracking',
+          description: 'Ultra-accurate motion capture and biometric monitoring systems with sub-millimeter precision capabilities.'
+        },
+        {
+          icon: '🔒',
+          title: 'Secure Data',
+          description: 'Enterprise-grade security protocols protecting sensitive athlete data while ensuring GDPR compliance.'
+        }
+      ]
+    };
+
+    // Initialize the page
+    function initializePage() {
+      renderSportsCategories();
+      renderFeatures();
+      setupEventListeners();
+      addEntranceAnimations();
+    }
+
+    // Render sports categories
+    function renderSportsCategories() {
+      const container = document.getElementById('sportsCategories');
+      if (!container) return;
+
+      container.innerHTML = sportsData.categories.map(category => `
+        <div class="category-card" data-category="${category.id}">
+          <span class="category-icon">${category.icon}</span>
+          <h3 class="category-title">${category.title}</h3>
+          <p class="category-description">${category.description}</p>
+          <div class="category-stats">
+            ${Object.entries(category.stats).map(([key, value]) => `
+              <div class="mini-stat">
+                <span class="mini-stat-number">${value}</span>
+                <span class="mini-stat-label">${key}</span>
+              </div>
+            `).join('')}
+          </div>
+          <button class="explore-btn" onclick="exploreCategory('${category.id}')">
+            Explore Technology
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    // Render features
+    function renderFeatures() {
+      const container = document.getElementById('featuresGrid');
+      if (!container) return;
+
+      container.innerHTML = sportsData.features.map((feature, index) => `
+        <div class="feature-item" style="animation-delay: ${index * 0.1}s">
+          <div class="feature-content">
+            <div class="feature-icon">${feature.icon}</div>
+            <h3 class="feature-title">${feature.title}</h3>
+            <p class="feature-description">${feature.description}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      // Add hover effects to stats
+      document.querySelectorAll('.sport-stat').forEach(stat => {
+        stat.addEventListener('mouseenter', function() {
+          this.classList.add('animate-pulse');
+        });
+        
+        stat.addEventListener('mouseleave', function() {
+          this.classList.remove('animate-pulse');
+        });
+      });
+
+      // Add interactive category cards
+      document.querySelectorAll('.category-card').forEach(card => {
+        card.addEventListener('click', function() {
+          const category = this.dataset.category;
+          showCategoryDetails(category);
+        });
+      });
+    }
+
+    // Explore category function
+    function exploreCategory(categoryId) {
+      const category = sportsData.categories.find(cat => cat.id === categoryId);
+      if (category) {
+        // Create modal or detailed view
+        showTechnologyModal(category);
+      }
+    }
+
+    // Show category details
+    function showCategoryDetails(categoryId) {
+      const category = sportsData.categories.find(cat => cat.id === categoryId);
+      if (!category) return;
+
+      // Smooth scroll to top and highlight
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      
+      // Create temporary highlight effect
+      const card = document.querySelector(`[data-category="${categoryId}"]`);
+      if (card) {
+        card.style.transform = 'scale(1.05)';
+        card.style.boxShadow = '0 25px 50px rgba(255, 107, 107, 0.3)';
+        card.style.borderColor = '#FF6B6B';
+        
+        setTimeout(() => {
+          card.style.transform = '';
+          card.style.boxShadow = '';
+          card.style.borderColor = '';
+        }, 2000);
+      }
+    }
+
+    // Show technology modal
+    function showTechnologyModal(category) {
+      // Create and show a beautiful modal with detailed information
+      const modal = document.createElement('div');
+      modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        backdrop-filter: blur(10px);
+        opacity: 0;
+        transition: all 0.3s ease;
+      `;
+
+      modal.innerHTML = `
+        <div style="
+          background: white;
+          border-radius: 30px;
+          padding: 3rem;
+          max-width: 600px;
+          margin: 2rem;
+          position: relative;
+          transform: scale(0.8);
+          transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        ">
+          <button onclick="this.closest('div[style*=\"fixed\"]').remove()" style="
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: #FF6B6B;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+          " onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">×</button>
+          
+          <div style="text-align: center; margin-bottom: 2rem;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">${category.icon}</div>
+            <h2 style="font-size: 2rem; font-weight: 700; color: #333; margin-bottom: 1rem;">${category.title}</h2>
+            <p style="color: #666; font-size: 1.1rem; line-height: 1.6;">${category.description}</p>
+          </div>
+          
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+            ${Object.entries(category.stats).map(([key, value]) => `
+              <div style="text-align: center; padding: 1.5rem; background: linear-gradient(135deg, #f8f9ff, #fff0f3); border-radius: 15px;">
+                <div style="font-size: 1.5rem; font-weight: 800; color: #FF6B6B; margin-bottom: 0.5rem;">${value}</div>
+                <div style="font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.1em;">${key}</div>
+              </div>
+            `).join('')}
+          </div>
+          
+          <div style="text-align: center;">
+            <button onclick="this.closest('div[style*=\"fixed\"]').remove()" style="
+              padding: 1rem 2rem;
+              background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+              color: white;
+              border: none;
+              border-radius: 50px;
+              font-weight: 600;
+              cursor: pointer;
+              transition: all 0.3s ease;
+            " onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+              Explore More Technologies
+            </button>
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(modal);
+      
+      // Animate in
+      setTimeout(() => {
+        modal.style.opacity = '1';
+        modal.firstElementChild.style.transform = 'scale(1)';
+      }, 10);
+    }
+
+    // Add entrance animations
+    function addEntranceAnimations() {
+      // Animate category cards
+      setTimeout(() => {
+        document.querySelectorAll('.category-card').forEach((card, index) => {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(50px)';
+          setTimeout(() => {
+            card.style.transition = 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, index * 200);
+        });
+      }, 1000);
+
+      // Animate feature items
+      setTimeout(() => {
+        document.querySelectorAll('.feature-item').forEach((item, index) => {
+          item.style.opacity = '0';
+          item.style.transform = 'translateY(30px)';
+          setTimeout(() => {
+            item.style.transition = 'all 0.6s ease';
+            item.style.opacity = '1';
+            item.style.transform = 'translateY(0)';
+          }, index * 150);
+        });
+      }, 1500);
+    }
+
+    // Initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', initializePage);
+  </script>
+</body>
+</html>

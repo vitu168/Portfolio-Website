@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>News & Trends | Cambo-TU</title>
+  <link rel="stylesheet" href="../src/css/theme.css" />
+  <link rel="stylesheet" href="../src/css/main.css" />
+  <link rel="stylesheet" href="../src/css/components.css" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+    
+    /* Professional Navigation Bar */
+    .knowledge-nav {
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(10px);
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    }
+    .back-button:hover {
+      background: linear-gradient(135deg, #FF5252, #FF7043);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+    }
+    .back-button svg {
+      transition: transform 0.3s ease;
+    }
+    .back-button:hover svg {
+      transform: translateX(-2px);
+    }
+    .page-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .breadcrumb {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      padding: 4rem 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    }
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      color: white;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+    .hero-subtitle {
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.9);
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      font-weight: 400;
+    }
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .stat-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: white;
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.875rem;
+      color: rgba(255, 255, 255, 0.8);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.5rem;
+    }
+    
+    /* Main Content */
+    .main-section {
+      padding: 4rem 0;
+    }
+    .content-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 3rem;
+    }
+    
+    /* Breaking News Section */
+    .breaking-news {
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      border-radius: 20px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .breaking-news::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    }
+    .breaking-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+    .breaking-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+    .breaking-description {
+      opacity: 0.9;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Filter Section */
+    .filter-section {
+      margin-bottom: 3rem;
+    }
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+    }
+    .filter-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .filter-btn {
+      padding: 0.75rem 1.5rem;
+      border: 2px solid var(--border-color);
+      background: var(--bg-secondary);
+      color: var(--text-secondary);
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .filter-btn:hover {
+      border-color: #FF6B6B;
+      color: #FF6B6B;
+      transform: translateY(-2px);
+    }
+    .filter-btn.active {
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      border-color: #FF6B6B;
+      color: white;
+      box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+    }
+    
+    /* News Grid */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+    .news-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .news-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #FF6B6B, #FF8E53);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    .news-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      border-color: #FF6B6B;
+    }
+    .news-card:hover::before {
+      transform: scaleX(1);
+    }
+    .news-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .news-image::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at center, transparent 30%, rgba(0,0,0,0.1) 100%);
+    }
+    .news-content {
+      padding: 2rem;
+    }
+    .news-tag {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: #FF6B6B;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .news-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+      color: var(--text-primary);
+    }
+    .news-description {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+    .news-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #FF6B6B;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+    .read-more:hover {
+      gap: 0.75rem;
+      color: #FF5252;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .sidebar-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 2rem;
+    }
+    .sidebar-title {
+      font-size: 1.125rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+    }
+    .trending-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--bg-primary);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+    }
+    .trending-item:hover {
+      background: #FF6B6B;
+      color: white;
+      transform: translateX(4px);
+    }
+    .trending-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: #FF6B6B;
+      color: white;
+      border-radius: 50%;
+      font-weight: 700;
+      font-size: 0.875rem;
+    }
+    .trending-content h4 {
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+    .trending-content p {
+      font-size: 0.75rem;
+      opacity: 0.7;
+    }
+    
+    /* Footer */
+    .knowledge-footer {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      padding: 2rem 0;
+      text-align: center;
+      margin-top: 4rem;
+    }
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      color: var(--text-secondary);
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .content-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .nav-container {
+        padding: 0 1rem;
+      }
+      .hero-content {
+        padding: 0 1rem;
+      }
+    }
+    @media (max-width: 768px) {
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+      .hero-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+      .filter-grid {
+        gap: 0.5rem;
+      }
+      .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .back-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+      }
+      .page-title {
+        font-size: 1rem;
+      }
+      .news-content {
+        padding: 1.5rem;
+      }
+      .sidebar-card {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Professional Navigation -->
+  <nav class="knowledge-nav">
+    <div class="nav-container">
+      <a href="../index.html" class="back-button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        Back to Portfolio
+      </a>
+      <div class="breadcrumb">
+        <span>Knowledge Base</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+        <span class="page-title">News & Trends</span>
+      </div>
+      <div></div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">News & Trends</h1>
+      <p class="hero-subtitle">Stay updated with the latest news, industry trends, and global developments</p>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <span class="stat-number">150+</span>
+          <span class="stat-label">Articles</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">Daily</span>
+          <span class="stat-label">Updates</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">Global</span>
+          <span class="stat-label">Coverage</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="main-section">
+    <div class="content-container">
+      <!-- Main Content Area -->
+      <main class="main-content">
+        <!-- Breaking News -->
+        <div class="breaking-news">
+          <div class="breaking-badge">
+            🔴 Breaking News
+          </div>
+          <h2 class="breaking-title">Major Technology Breakthrough in Quantum Computing</h2>
+          <p class="breaking-description">Scientists achieve significant milestone in quantum error correction, bringing practical quantum computers closer to reality.</p>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+          <h2 class="section-title">Browse by Category</h2>
+          <div class="filter-grid" id="filterContainer">
+            <button class="filter-btn active" data-filter="all">All News</button>
+            <button class="filter-btn" data-filter="technology">Technology</button>
+            <button class="filter-btn" data-filter="business">Business</button>
+            <button class="filter-btn" data-filter="science">Science</button>
+            <button class="filter-btn" data-filter="world">World</button>
+            <button class="filter-btn" data-filter="health">Health</button>
+          </div>
+        </div>
+
+        <!-- News Section -->
+        <div class="news-section">
+          <h2 class="section-title">Latest News</h2>
+          <div class="news-grid" id="newsContainer">
+            <!-- News articles will be loaded here -->
+          </div>
+        </div>
+      </main>
+
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Trending Topics</h3>
+          <div class="trending-list">
+            <a href="#" class="trending-item">
+              <div class="trending-number">1</div>
+              <div class="trending-content">
+                <h4>AI Revolution</h4>
+                <p>142k discussions</p>
+              </div>
+            </a>
+            <a href="#" class="trending-item">
+              <div class="trending-number">2</div>
+              <div class="trending-content">
+                <h4>Climate Action</h4>
+                <p>98k discussions</p>
+              </div>
+            </a>
+            <a href="#" class="trending-item">
+              <div class="trending-number">3</div>
+              <div class="trending-content">
+                <h4>Space Exploration</h4>
+                <p>76k discussions</p>
+              </div>
+            </a>
+            <a href="#" class="trending-item">
+              <div class="trending-number">4</div>
+              <div class="trending-content">
+                <h4>Digital Economy</h4>
+                <p>54k discussions</p>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Quick Stats</h3>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 12px;">
+              <div style="font-size: 1.5rem; font-weight: 700; color: #FF6B6B;">284</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase;">Today's Views</div>
+            </div>
+            <div style="text-align: center; padding: 1rem; background: var(--bg-primary); border-radius: 12px;">
+              <div style="font-size: 1.5rem; font-weight: 700; color: #FF6B6B;">52</div>
+              <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase;">New Articles</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sidebar-card">
+          <h3 class="sidebar-title">Newsletter</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 1rem;">Get daily news updates delivered to your inbox</p>
+          <div style="display: flex; gap: 0.5rem;">
+            <input type="email" placeholder="Enter email" style="flex: 1; padding: 0.75rem; border: 1px solid var(--border-color); border-radius: 8px; background: var(--bg-primary); color: var(--text-primary);">
+            <button style="padding: 0.75rem 1rem; background: #FF6B6B; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">Subscribe</button>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="knowledge-footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Cambo-TU News & Trends. Stay informed, stay ahead.</p>
+    </div>
+  </footer>
+
+  <script>
+    // News data
+    const newsData = {
+      articles: [
+        {
+          id: 1,
+          title: "Revolutionary AI Model Breaks Language Barriers",
+          description: "New artificial intelligence system can translate between 100 languages in real-time with 98% accuracy.",
+          category: "technology",
+          icon: "🤖",
+          publishDate: "2 hours ago",
+          readTime: "3 min read",
+          trending: true
+        },
+        {
+          id: 2,
+          title: "Global Climate Summit Reaches Historic Agreement",
+          description: "World leaders commit to ambitious carbon reduction targets in landmark climate accord.",
+          category: "world",
+          icon: "🌍",
+          publishDate: "4 hours ago",
+          readTime: "5 min read",
+          trending: false
+        },
+        {
+          id: 3,
+          title: "Breakthrough in Cancer Treatment Shows Promise",
+          description: "New immunotherapy approach shows 95% success rate in early clinical trials.",
+          category: "health",
+          icon: "🏥",
+          publishDate: "6 hours ago",
+          readTime: "4 min read",
+          trending: true
+        },
+        {
+          id: 4,
+          title: "Space Tourism Industry Reaches New Milestone",
+          description: "Private space companies successfully complete 1000th civilian space flight.",
+          category: "science",
+          icon: "🚀",
+          publishDate: "8 hours ago",
+          readTime: "6 min read",
+          trending: false
+        },
+        {
+          id: 5,
+          title: "Digital Currency Adoption Accelerates Globally",
+          description: "Central bank digital currencies gain momentum as 15 countries announce implementation plans.",
+          category: "business",
+          icon: "💰",
+          publishDate: "10 hours ago",
+          readTime: "4 min read",
+          trending: true
+        },
+        {
+          id: 6,
+          title: "Quantum Internet Network Successfully Tested",
+          description: "Scientists demonstrate secure quantum communication across 1000-kilometer network.",
+          category: "technology",
+          icon: "⚛️",
+          publishDate: "12 hours ago",
+          readTime: "5 min read",
+          trending: false
+        }
+      ],
+      categories: [
+        { id: "all", name: "All News", count: 6 },
+        { id: "technology", name: "Technology", count: 2 },
+        { id: "business", name: "Business", count: 1 },
+        { id: "science", name: "Science", count: 1 },
+        { id: "world", name: "World", count: 1 },
+        { id: "health", name: "Health", count: 1 }
+      ]
+    };
+
+    let currentFilter = "all";
+
+    // Initialize the page
+    function initializePage() {
+      renderFilterButtons();
+      renderNews();
+      setupEventListeners();
+    }
+
+    // Render filter buttons
+    function renderFilterButtons() {
+      const filterContainer = document.getElementById('filterContainer');
+      if (!filterContainer) return;
+
+      filterContainer.innerHTML = newsData.categories.map(category => `
+        <button class="filter-btn ${category.id === currentFilter ? 'active' : ''}" 
+                data-filter="${category.id}">
+          ${category.name}
+        </button>
+      `).join('');
+    }
+
+    // Render news articles
+    function renderNews() {
+      const newsContainer = document.getElementById('newsContainer');
+      if (!newsContainer) return;
+
+      const articlesToShow = currentFilter === "all" 
+        ? newsData.articles 
+        : newsData.articles.filter(article => article.category === currentFilter);
+
+      if (articlesToShow.length === 0) {
+        newsContainer.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: var(--text-secondary);">
+            <h3>No news found in this category</h3>
+            <p>Check back soon for new updates!</p>
+          </div>
+        `;
+        return;
+      }
+
+      newsContainer.innerHTML = articlesToShow.map(article => `
+        <article class="news-card" data-category="${article.category}">
+          <div class="news-image">
+            <span style="font-size: 4rem; position: relative; z-index: 1;">${article.icon}</span>
+          </div>
+          <div class="news-content">
+            <div class="news-tag">${article.category}</div>
+            <h3 class="news-title">${article.title}</h3>
+            <p class="news-description">${article.description}</p>
+            <div class="news-meta">
+              <span>📅 ${article.publishDate}</span>
+              <span>⏱️ ${article.readTime}</span>
+              ${article.trending ? '<span style="color: #FF6B6B;">🔥 Trending</span>' : ''}
+            </div>
+            <a href="#" class="read-more">
+              Read Full Story
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      const filterContainer = document.getElementById('filterContainer');
+      if (filterContainer) {
+        filterContainer.addEventListener('click', handleFilterClick);
+      }
+
+      // Newsletter subscription
+      const subscribeBtn = document.querySelector('button[style*="background: #FF6B6B"]');
+      if (subscribeBtn) {
+        subscribeBtn.addEventListener('click', function() {
+          const email = this.previousElementSibling.value;
+          if (email) {
+            this.textContent = 'Subscribed!';
+            this.style.background = '#4CAF50';
+            setTimeout(() => {
+              this.textContent = 'Subscribe';
+              this.style.background = '#FF6B6B';
+            }, 2000);
+          }
+        });
+      }
+    }
+
+    // Handle filter clicks
+    function handleFilterClick(event) {
+      if (!event.target.classList.contains('filter-btn')) return;
+
+      const filter = event.target.dataset.filter;
+      if (filter === currentFilter) return;
+
+      // Update active state
+      document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Update filter and re-render
+      currentFilter = filter;
+      renderNews();
+
+      // Smooth scroll to news section
+      const newsSection = document.querySelector('.news-section');
+      if (newsSection) {
+        newsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    // Initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+      initializePage();
+      
+      // Add entrance animations
+      setTimeout(() => {
+        document.querySelectorAll('.news-card').forEach((card, index) => {
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(20px)';
+          setTimeout(() => {
+            card.style.transition = 'all 0.6s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, index * 100);
+        });
+      }, 300);
+    });
+  </script>
+</body>
+</html>
